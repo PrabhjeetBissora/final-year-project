@@ -40,6 +40,15 @@
                     center: { lat: 40.7128, lng: -74.0060 }, // Default to New York
                     zoom: 5,
                 });
+
+                var myTrip = [stavanger,amsterdam,london];
+                var flightPath = new google.maps.Polyline({
+                    path:myTrip,
+                    strokeColor:"#0000FF",
+                    strokeOpacity:0.8,
+                    strokeWeight:2
+                });
+
         }
     </script>
 
