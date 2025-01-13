@@ -47,6 +47,10 @@
 
             // var myTrip = [stavanger,amsterdam,london];
 
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+
             const flightRoute = [
                 { lat: 40.7128, lng: -74.0060 }, // New York (JFK)
                 { lat: 41.9773, lng: -87.9080 }, // Chicago (ORD)
@@ -62,6 +66,30 @@
             });
 
             flightPath.setMap(map);
+        }
+
+        function calculateRoute() {
+            const start = document.getElementById("start").value;
+            const end = document.getElementById("end").value;
+
+            if (!start || !end) {
+                alert("Please enter both start and end locations.");
+                return;
+            }
+
+            const request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.TravelMode.DRIVING,
+            };
+
+            directionsService.route(request, (result, status) => {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    directionsRenderer.setDirections(result);
+                } else {
+                    alert("Directions request failed due to " + status);
+                }
+            });
         }
 
         window.initMap = initMap;
