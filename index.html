@@ -17,14 +17,6 @@
 
     <h1>My First Google Map</h1>
 
-    <div>
-        <label for="start">Start:</label>
-        <input type="text" id="start" placeholder="Enter starting location">
-        <label for="end">End:</label>
-        <input type="text" id="end" placeholder="Enter destination">
-        <button onclick="calculateRoute()">Get Route</button>
-    </div>
-
     <div id="map"></div>
 
     <!-- Google Maps JavaScript API -->
@@ -33,7 +25,9 @@
     </script>
 
     <script>
-        let map, directionsService, directionsRenderer;
+
+        // initialising map reloading properties
+        let map, directionsService1, directionsService2, directionsRenderer1, directionsRenderer2;
 
         const airportCoords = {
             DUB: { lat: 53.4256, lng: -6.2574 }, // Dublin (DUB)
@@ -47,9 +41,15 @@
             });
 
 
-            directionsService = new google.maps.DirectionsService();
-            directionsRenderer = new google.maps.DirectionsRenderer();
-            directionsRenderer.setMap(map);
+            // create multiple services and renders for loading multiple routes
+
+            directionsService1 = new google.maps.DirectionsService();
+            directionsRenderer1 = new google.maps.DirectionsRenderer();
+            directionsRenderer1.setMap(map);
+
+            directionsService2 = new google.maps.DirectionsService();
+            directionsRenderer2 = new google.maps.DirectionsRenderer();
+            directionsRenderer2.setMap(map);
 
             const flightRouteCodes = ["DUB", "LHR"];
             const flightRoute = flightRouteCodes.map(code => airportCoords[code]);
@@ -72,8 +72,8 @@
             // const start = document.getElementById("start").value;
             // const end = document.getElementById("end").value;
 
-            const start = 'Dublin airport';
-            const end = 'temple bar';
+            const start = 'temple bar';
+            const end = 'dublin airport';
 
             if (!start || !end) {
                 alert("Please enter both start and end locations.");
@@ -86,9 +86,9 @@
                 travelMode: google.maps.TravelMode.TRANSIT,
             };
 
-            directionsService.route(request, (result, status) => {
+            directionsService1.route(request, (result, status) => {
                 if (status === google.maps.DirectionsStatus.OK) {
-                    directionsRenderer.setDirections(result);
+                    directionsRenderer1.setDirections(result);
                 } else {
                     alert("Directions request failed due to " + status);
                 }
@@ -113,9 +113,9 @@
                 travelMode: google.maps.TravelMode.TRANSIT,
             };
 
-            directionsService.route(request, (result, status) => {
+            directionsService2.route(request, (result, status) => {
                 if (status === google.maps.DirectionsStatus.OK) {
-                    directionsRenderer.setDirections(result);
+                    directionsRenderer2.setDirections(result);
                 } else {
                     alert("Directions request failed due to " + status);
                 }
