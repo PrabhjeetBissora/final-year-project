@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import GoogleMap from './GoogleMap'
 
 function App() {
   return (
@@ -18,6 +19,14 @@ function App() {
           Learn React
         </a>
       </header>
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <div>
+      <GoogleMap/>
     </div>
   );
 }
