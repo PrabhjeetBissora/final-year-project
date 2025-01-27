@@ -54,5 +54,40 @@ const GoogleMap = () => {
         document.body.removeChild(script);
       };
     }
+    const initMap = () => {
+      const airportCoords = {
+        DUB: { lat: 53.4256, lng: -6.2574 }, // Dublin (DUB)
+        LHR: { lat: 51.468, lng: -0.4551 } // London (LHR)
+      };
+
+      const map = new window.google.maps.Map(document.getElementById("map"), {
+        center: { lat: 53.4256, lng: -6.2574 }, // Default to Dublin
+        zoom: 5
+      });
+
+      const directionsService1 = new window.google.maps.DirectionsService();
+      const directionsRenderer1 = new window.google.maps.DirectionsRenderer();
+      directionsRenderer1.setMap(map);
+
+      const directionsService2 = new window.google.maps.DirectionsService();
+      const directionsRenderer2 = new window.google.maps.DirectionsRenderer();
+      directionsRenderer2.setMap(map);
+
+      const flightRouteCodes = ["DUB", "LHR"];
+      const flightRoute = flightRouteCodes.map((code) => airportCoords[code]);
+
+      const flightPath = new window.google.maps.Polyline({
+        path: flightRoute,
+        geodesic: true,
+        strokeColor: "#0000FF",
+        strokeOpacity: 0.8,
+        strokeWeight: 2
+      });
+
+      calculateRoute1(directionsService1, directionsRenderer1);
+      calculateRoute2(directionsService2, directionsRenderer2);
+
+      flightPath.setMap(map);
+    };
   })
 }
