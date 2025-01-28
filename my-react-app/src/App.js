@@ -89,5 +89,53 @@ const GoogleMap = () => {
 
       flightPath.setMap(map);
     };
+
+    const calculateRoute1 = (directionsService, directionsRenderer) => {
+      const start = "temple bar";
+      const end = "dublin airport";
+
+      if (!start || !end) {
+        alert("Please enter both start and end locations.");
+        return;
+      }
+
+      const request = {
+        origin: start,
+        destination: end,
+        travelMode: window.google.maps.TravelMode.TRANSIT
+      };
+
+      directionsService.route(request, (result, status) => {
+        if (status === window.google.maps.DirectionsStatus.OK) {
+          directionsRenderer.setDirections(result);
+        } else {
+          alert("Directions request failed due to " + status);
+        }
+      });
+    };
+
+    const calculateRoute2 = (directionsService, directionsRenderer) => {
+      const start = "LHR airport";
+      const end = "big ben";
+
+      if (!start || !end) {
+        alert("Please enter both start and end locations.");
+        return;
+      }
+
+      const request = {
+        origin: start,
+        destination: end,
+        travelMode: window.google.maps.TravelMode.TRANSIT
+      };
+
+      directionsService.route(request, (result, status) => {
+        if (status === window.google.maps.DirectionsStatus.OK) {
+          directionsRenderer.setDirections(result);
+        } else {
+          alert("Directions request failed due to " + status);
+        }
+      });
+    };
   })
 }
