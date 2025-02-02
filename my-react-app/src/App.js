@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 
 const GoogleMap = () => {
   useEffect(() => {
+
     const loadGoogleMapsAPI = () => {
       const script = document.createElement("script");
       script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBoPryoNFGz_SvBneuhkfgIcMI381f88fQ&callback=initMap";
@@ -21,6 +22,8 @@ const GoogleMap = () => {
       };
     }
     const initMap = () => {
+
+
       const airportCoords = {
         DUB: { lat: 53.4256, lng: -6.2574 }, // Dublin (DUB)
         LHR: { lat: 51.468, lng: -0.4551 } // London (LHR)
@@ -39,6 +42,7 @@ const GoogleMap = () => {
       const directionsRenderer2 = new window.google.maps.DirectionsRenderer();
       directionsRenderer2.setMap(map);
 
+      // initialise airport codes
       const flightRouteCodes = ["DUB", "LHR"];
       const flightRoute = flightRouteCodes.map((code) => airportCoords[code]);
 
@@ -50,8 +54,12 @@ const GoogleMap = () => {
         strokeWeight: 2
       });
 
+      calculateRoute1(directionsService1, directionsRenderer1, startPoint, airport1)
+      calculateRoute1(directionsService1, directionsRenderer1, airport2, endpoint)
+      /*
       calculateRoute1(directionsService1, directionsRenderer1);
       calculateRoute2(directionsService2, directionsRenderer2);
+      */
 
       flightPath.setMap(map);
     };
@@ -109,7 +117,7 @@ const GoogleMap = () => {
 
   return (
     <div>
-      <h1>My First Google Map</h1>
+      <h1>Mapping Application</h1>
       <div id="map" style={{ height: "600px", width: "100%" }}></div>
     </div>
   );
