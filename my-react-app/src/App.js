@@ -1,4 +1,37 @@
 import React, { useEffect } from "react";
+import { useState } from "react";
+import ReactDOM from 'react-dom/client';
+
+const SearchForm = (onSearch) => {
+  const [startPoint, setSP] = useState("");
+  const [endPoint, setEP] = useState("");
+
+  // function that gets called by Google Maps app to activate function: https://react-hook-form.com/docs/useform/handlesubmit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSearch(startPoint, endPoint);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} style={{ marginBottom: "10px" }}>
+      <label>Start point:
+        <input
+          type = "text"
+          value = {startPoint}
+          onChange = {(s) => setSP(s.target.value)}
+        />
+      </label>
+      <label>End point:
+        <input
+          type = "text"
+          value = {endPoint}
+          onChange = {(e) => setEP(e.target.value)}
+        />
+      </label>
+      <button type="submit">Search</button>
+    </form>
+  )
+}
 
 const GoogleMap = () => {
   useEffect(() => {
@@ -22,7 +55,6 @@ const GoogleMap = () => {
       };
     }
     const initMap = () => {
-
 
       const airportCoords = {
         DUB: { lat: 53.4256, lng: -6.2574 }, // Dublin (DUB)
@@ -54,8 +86,13 @@ const GoogleMap = () => {
         strokeWeight: 2
       });
 
+      const startPoint = "temple bar";
+      const airport1 = "dublin airport";
+      const airport2 = "lhr airport";
+      const endPoint = "big ben";
+
       calculateRoute1(directionsService1, directionsRenderer1, startPoint, airport1)
-      calculateRoute1(directionsService1, directionsRenderer1, airport2, endpoint)
+      calculateRoute2(directionsService2, directionsRenderer2, airport2, endPoint)
       /*
       calculateRoute1(directionsService1, directionsRenderer1);
       calculateRoute2(directionsService2, directionsRenderer2);
@@ -64,9 +101,14 @@ const GoogleMap = () => {
       flightPath.setMap(map);
     };
 
-    const calculateRoute1 = (directionsService, directionsRenderer) => {
-      const start = "temple bar";
-      const end = "dublin airport";
+    //const calculateRoute1 = (directionsService, directionsRenderer) => {
+    const calculateRoute1 = (directionsService, directionsRenderer, 
+                             startPoint, airport1) => {
+      //const start = "temple bar";
+      //const end = "dublin airport";
+      
+      const start = startPoint;
+      const end = airport1;
 
       if (!start || !end) {
         alert("Please enter both start and end locations.");
@@ -88,9 +130,14 @@ const GoogleMap = () => {
       });
     };
 
-    const calculateRoute2 = (directionsService, directionsRenderer) => {
-      const start = "LHR airport";
-      const end = "big ben";
+    //const calculateRoute2 = (directionsService, directionsRenderer) => {
+    const calculateRoute2 = (directionsService, directionsRenderer, 
+                             airport2, endPoint) => {
+      //const start = "LHR airport";
+      //const end = "big ben";
+
+      const start = airport2;
+      const end = endPoint;
 
       if (!start || !end) {
         alert("Please enter both start and end locations.");
@@ -111,13 +158,21 @@ const GoogleMap = () => {
         }
       });
     };
+
 
     loadGoogleMapsAPI();
-  }, [])
+  }, []);
+
+  const calculateRoute = (start, end) => {
+    if (start == null || end == null){
+      alert("Enter in a valid start and end point");
+    }
+  }
 
   return (
     <div>
       <h1>Mapping Application</h1>
+      <SearchForm onSearch={calculateRoute} />
       <div id="map" style={{ height: "600px", width: "100%" }}></div>
     </div>
   );
