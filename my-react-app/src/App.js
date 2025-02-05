@@ -167,6 +167,20 @@ const GoogleMap = () => {
     if (start == null || end == null){
       alert("Enter in a valid start and end point");
     }
+
+    const request = {
+      origin: start,
+      destination: end,
+      travelMode: window.google.maps.TravelMode.TRANSIT,
+    }
+
+    directionsService1.route(request, (result, status) => {
+      if (status === window.google.maps.DirectionsStatus.OK) {
+        directionsRenderer1.setDirections(result);
+      } else {
+        alert("Directions request failed due to " + status);
+      }
+    });
   }
 
   return (
