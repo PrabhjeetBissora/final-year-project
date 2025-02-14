@@ -1,5 +1,6 @@
+import axios from 'axios';
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom/client";
+import { getDistance } from "geolib";
 
 const SearchForm = ({ onSearch }) => {
   const [startPoint, setSP] = useState("");
@@ -79,8 +80,8 @@ const GoogleMap = () => {
           </tr>
           <tr>
             <td>Flight</td>
+            <td>{flightDetails.distance}</td>
             <td>{flightDetails.duration}</td>
-            <td>---</td>
           </tr>
           <tr>
             <td>Ground (Nearest Airport to End)</td>
@@ -145,11 +146,6 @@ const GoogleMap = () => {
   };
 
   const findNearestAirport = async (location) => {
-    const airports = {
-      DUB: { lat: 53.4213, lng: -6.2701 },
-      LHR: { lat: 51.4700, lng: -0.4543 },
-    };
-
     const geocoder = new window.google.maps.Geocoder();
     const response = await new Promise((resolve) =>
       geocoder.geocode({ address: location }, (results, status) => {
@@ -157,24 +153,59 @@ const GoogleMap = () => {
         else resolve(null);
       })
     );
-
-    if (!response) return null;
-
-    let nearestAirport = null;
-    let shortestDistance = Infinity;
-    Object.entries(airports).forEach(([code, coords]) => {
-      const distance = Math.sqrt(
-        Math.pow(response.lat() - coords.lat, 2) +
-          Math.pow(response.lng() - coords.lng, 2)
-      );
-      if (distance < shortestDistance) {
-        shortestDistance = distance;
-        nearestAirport = { code, coords };
+  
+    if (!response) {
+      console.error(`Geocoding failed for location: ${location}`);
+      alert("Failed to get location coordinates.");
+      return null;
+    }
+  
+    const latitude = response.lat();
+    const longitude = response.lng();
+  
+    // Log geocoded coordinates
+    console.log(`Geocoded location ${location} to latitude: ${latitude}, longitude: ${longitude}`);
+  
+    try {
+      const nearestAirport = await getNearestAirport(latitude, longitude);
+      if (nearestAirport) {
+        console.log(`Nearest airport found: ${nearestAirport.iataCode}`);
+        return {
+          code: nearestAirport.iataCode,
+          coords: {
+            lat: nearestAirport.geoCode.latitude,
+            lng: nearestAirport.geoCode.longitude
+          }
+        };
+      } else {
+        console.error(`No airport found for coordinates: ${latitude}, ${longitude}`);
       }
-    });
-
-    return nearestAirport;
+    } catch (error) {
+      console.error("Error getting nearest airport:", error);
+    }
+  
+    return null;
   };
+  
+
+
+  const getNearestAirport = async (latitude, longitude) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/nearest-airports?latitude=${latitude}&longitude=${longitude}`);
+      const data = await response.json();
+      console.log("Nearest Airports:", data);
+  
+      if (data.errors || !data.data || data.data.length === 0) {
+        alert("No airports found nearby.");
+        return null;
+      }
+  
+      return data.data[0]; // Return the first nearest airport
+    } catch (error) {
+      console.error("Error fetching nearest airport:", error);
+      return null;
+    }
+  };  
 
   const calculateRoute = (directionsService, directionsRenderer, start, end, setDetails) => {
     if (!start || !end) {
@@ -204,51 +235,54 @@ const GoogleMap = () => {
   };
 
 
-  const fetchFlightData = async (origin, destination) => {
-    const departureDate = "2025-07-01";
+  const fetchFlightData = async (origin, destination, retry = true) => {
+    const departureDate = "2025-10-02";
     const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=1`;
-
+  
     try {
+      // Get token from backend
+      const tokenResponse = await fetch('http://localhost:5000/api/token');
+      const tokenData = await tokenResponse.json();
+      const token = tokenData.token;
+  
+      console.log("Requesting Amadeus API with Token:", token);
+
       const response = await fetch(url, {
         headers: {
-          Authorization: `Bearer n3PxAq7ZPhlmsAGCrAfPIhP8XbB0`,
+          Authorization: `Bearer ${token}`,
         },
       });
-
+  
       const data = await response.json();
       console.log("Amadeus API Response:", data);
-
-      console.log(data);
-
-      if (data.errors || !data.data || data.data.length === 0) {
+  
+      // Check if the token was invalid and retry once with a fresh token
+      if (data.errors && retry) {
+        console.warn("Token might be expired, retrying with a new token...");
+        return fetchFlightData(origin, destination, false);
+      }
+  
+      if (!data.data || data.data.length === 0) {
         alert("No flights found!");
-        //alert(flight.itineraries);
-        if (data.errors){
-          alert("Data errored out");
-        }
-        if (!data.data){
-          alert("No data");
-        }
-        if (data.data.length === 0){
-          alert("Data length is zero");
-        }
         return;
       }
+  
+      const flight = data.data[0];
+      const distance = flight.itineraries[0]?.distance?.replace("PT", "").toLowerCase();
+      const duration = flight.itineraries[0]?.duration?.replace("PT", "").toLowerCase();
 
-      const flight = data.data[0]; // First available flight
-      const distance = flight.itineraries[0]?.distance?.replace("PT", "").toLowerCase(); // Example: "2h30m"
-      const duration = flight.itineraries[0]?.duration?.replace("PT", "").toLowerCase(); // Example: "2h30m"
-
+      //console.log(flight.itineraries);
+  
       setFlightDetails({
-        distance: distance, // Flight distance
-        duration: duration, // Flight time
+        distance: distance,
+        duration: duration,
       });
-
+  
       displayFlightsOnMap(data.data);
     } catch (error) {
       console.error("Fetch Error:", error);
     }
-  };
+  };  
 
   const handleSearch = async (startPoint, endPoint) => {
     if (!startPoint || !endPoint) {
@@ -256,21 +290,31 @@ const GoogleMap = () => {
       return;
     }
 
-    // Find nearest airports
+    axios.get(`http://localhost:5000/api/nearest-airports?latitude=53.381194&longitude=-6.592497`)
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  
+    console.log(`Searching for nearest airports for start point: ${startPoint} and end point: ${endPoint}`);
+  
+    // Get nearest airports for both start and end points
     const startAirport = await findNearestAirport(startPoint);
     const endAirport = await findNearestAirport(endPoint);
-
+  
     if (!startAirport || !endAirport) {
       alert("Could not find nearest airports.");
       return;
     }
-
+  
     console.log("Start Airport:", startAirport.code);
     console.log("End Airport:", endAirport.code);
-
+  
     const directionsService1 = new window.google.maps.DirectionsService();
     const directionsService2 = new window.google.maps.DirectionsService();
-
+  
     // Route 1: Start Point -> Nearest Airport
     calculateRoute(
       directionsService1,
@@ -279,7 +323,7 @@ const GoogleMap = () => {
       `${startAirport.code} Airport`,
       setGroundDetailsStart
     );
-
+  
     // Route 2: Nearest Airport -> End Point
     calculateRoute(
       directionsService2,
@@ -288,7 +332,7 @@ const GoogleMap = () => {
       endPoint,
       setGroundDetailsEnd
     );
-
+  
     // Fetch flight data from Amadeus API
     fetchFlightData(startAirport.code, endAirport.code, setFlightDetails);
   };
