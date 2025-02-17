@@ -197,6 +197,16 @@ const GoogleMap = () => {
   
       if (data.errors || !data.data || data.data.length === 0) {
         alert("No airports found nearby.");
+
+        if(data.errors){
+          console.log("Error", data.errors)
+        }
+        if(!data.data){
+          console.log("No data in api output")
+        }
+        if(data.data.length === 0){
+          console.log("Data length is 0")
+        }
         return null;
       }
   
@@ -290,6 +300,7 @@ const GoogleMap = () => {
       return;
     }
 
+    /*
     axios.get(`http://localhost:5000/api/nearest-airports?latitude=53.381194&longitude=-6.592497`)
     .then(response => {
       console.log(response.data);
@@ -297,6 +308,7 @@ const GoogleMap = () => {
     .catch(error => {
       console.error('Error fetching data:', error);
     });
+    */
   
     console.log(`Searching for nearest airports for start point: ${startPoint} and end point: ${endPoint}`);
   

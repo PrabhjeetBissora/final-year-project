@@ -156,7 +156,9 @@ app.get('/api/nearest-airports', async (req, res) => {
     }
 });
   
-  
+app.get('/api/nearest-rel-airports', async (req, res) => {
+    
+});
 
 app.get('/api/locations', async (req, res) => {
     const { keyword } = req.query;

@@ -1,9 +1,31 @@
 {
   "dependencies": {
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/plugin-transform-private-property-in-object": "^7.25.9"
-  }
+  },
+  "name": "final-year-project",
+  "version": "1.0.0",
+  "description": "My final year project for TU856",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrabhjeetBissora/final-year-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PrabhjeetBissora/final-year-project/issues"
+  },
+  "homepage": "https://github.com/PrabhjeetBissora/final-year-project#readme"
 }
