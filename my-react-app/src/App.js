@@ -1,6 +1,4 @@
-import axios from 'axios';
 import React, { useEffect, useState } from "react";
-import { getDistance } from "geolib";
 
 const SearchForm = ({ onSearch }) => {
   const [startPoint, setSP] = useState("");

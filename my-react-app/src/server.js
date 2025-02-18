@@ -19,17 +19,30 @@ app.use(cors({
 require('dotenv').config();
 //const axios = require('axios');
 
+var mongo = require('mongodb');
+
 // Amadeus API credentials
 const API_KEY = process.env.AMADEUS_API_KEY;
 const API_SECRET = process.env.AMADEUS_API_SECRET;
 const TOKEN_URL = "https://test.api.amadeus.com/v1/security/oauth2/token";
 
-//console.log("API_KEY:", API_KEY);
-//console.log("API_SECRET:", API_SECRET);
-
 // Token storage
 let accessToken = null;
 let tokenExpiryTime = 0; // Unix timestamp for expiration
+
+const getNearestAirport = (latitude, longitude) => {
+  let center = new google.maps.LatLng(latitude, longitude);
+  const request = {
+    fields: ["displayName"],
+    locationRestriction: {
+      center: center,
+      radius: 5000,
+    },
+    includedTypes: ["international_airport"],
+    excludedTypes: ["taxi_stand", "car_rental"],
+    rankPreference: SearchNearbyRankPreference.POPULARITY
+  }
+}
 
 // Function to get access token
 const getAccessToken = async (forceRefresh = false) => {
@@ -59,44 +72,6 @@ const getAccessToken = async (forceRefresh = false) => {
       throw new Error("Failed to obtain access token.");
     }
 };  
-
-// Function to call Amadeus API
-async function callAmadeusApi(endpoint, params = {}) {
-    try {
-        const token = await getAccessToken();
-        const url = `https://test.api.amadeus.com${endpoint}`;
-        const response = await axios.get(url, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-            params
-        });
-
-        if (response.status === 200) {
-            return response.data;
-        } else {
-            console.error(`Error: ${response.status} - ${response.statusText}`);
-            return null;
-        }
-    } catch (error) {
-        console.error("Error calling Amadeus API:", error.message);
-        return null;
-    }
-}
-
-/*
-// Example Usage: Get city information for London
-(async () => {
-    const endpoint = "/v1/reference-data/locations";
-    const params = {
-        keyword: "LON",
-        subType: "CITY"
-    };
-
-    const response = await callAmadeusApi(endpoint, params);
-    console.log(response);
-})();
-*/
 
 // Endpoint to get Amadeus token
 app.get('/api/token', async (req, res) => {
@@ -155,10 +130,6 @@ app.get('/api/nearest-airports', async (req, res) => {
       return res.status(500).json({ error: "Failed to fetch nearest airports" });
     }
 });
-  
-app.get('/api/nearest-rel-airports', async (req, res) => {
-    
-});
 
 app.get('/api/locations', async (req, res) => {
     const { keyword } = req.query;
@@ -170,7 +141,6 @@ app.get('/api/locations', async (req, res) => {
         res.status(500).json({ error: "Failed to fetch locations" });
     }
 });
-
 
 const getAirportsAndCities = async (keyword) => {
     try {
