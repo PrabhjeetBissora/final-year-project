@@ -1,0 +1,224 @@
+{
+    "type": "flight-offer",
+    "id": "1",
+    "source": "GDS",
+    "instantTicketingRequired": false,
+    "nonHomogeneous": false,
+    "oneWay": false,
+    "isUpsellOffer": false,
+    "lastTicketingDate": "2025-02-27",
+    "lastTicketingDateTime": "2025-02-27",
+    "numberOfBookableSeats": 5,
+    "itineraries": [
+        {
+            "duration": "PT7H15M",
+            "segments": [
+                {
+                    "departure": {
+                        "iataCode": "ORK",
+                        "at": "2025-02-27T06:00:00"
+                    },
+                    "arrival": {
+                        "iataCode": "AMS",
+                        "at": "2025-02-27T08:50:00"
+                    },
+                    "carrierCode": "KL",
+                    "number": "1126",
+                    "aircraft": {
+                        "code": "E90"
+                    },
+                    "duration": "PT1H50M",
+                    "id": "16",
+                    "numberOfStops": 0,
+                    "blacklistedInEU": false
+                },
+                {
+                    "departure": {
+                        "iataCode": "AMS",
+                        "at": "2025-02-27T13:30:00"
+                    },
+                    "arrival": {
+                        "iataCode": "BRU",
+                        "at": "2025-02-27T14:15:00"
+                    },
+                    "carrierCode": "KL",
+                    "number": "1705",
+                    "aircraft": {
+                        "code": "E7W"
+                    },
+                    "duration": "PT45M",
+                    "id": "17",
+                    "numberOfStops": 0,
+                    "blacklistedInEU": false
+                }
+            ]
+        }
+    ],
+    "price": {
+        "currency": "EUR",
+        "total": "299.30",
+        "base": "239.00",
+        "fees": [
+            {
+                "amount": "0.00",
+                "type": "SUPPLIER"
+            },
+            {
+                "amount": "0.00",
+                "type": "TICKETING"
+            }
+        ],
+        "grandTotal": "299.30"
+    },
+    "pricingOptions": {
+        "fareType": [
+            "PUBLISHED"
+        ],
+        "includedCheckedBagsOnly": false
+    },
+    "validatingAirlineCodes": [
+        "AF"
+    ],
+    "travelerPricings": [
+        {
+            "travelerId": "1",
+            "fareOption": "STANDARD",
+            "travelerType": "ADULT",
+            "price": {
+                "currency": "EUR",
+                "total": "299.30",
+                "base": "239.00"
+            },
+            "fareDetailsBySegment": [
+                {
+                    "segmentId": "16",
+                    "cabin": "ECONOMY",
+                    "fareBasis": "HYL0BALA",
+                    "brandedFare": "LIGHT",
+                    "brandedFareLabel": "ECONOMY LIGHT",
+                    "class": "H",
+                    "includedCheckedBags": {
+                        "quantity": 0
+                    },
+                    "includedCabinBags": {
+                        "quantity": 1
+                    },
+                    "amenities": [
+                        {
+                            "description": "CHECKED BAG 1PC OF 23KG 158CM",
+                            "isChargeable": true,
+                            "amenityType": "BAGGAGE",
+                            "amenityProvider": {
+                                "name": "BrandedFare"
+                            }
+                        },
+                        {
+                            "description": "SNACK",
+                            "isChargeable": false,
+                            "amenityType": "MEAL",
+                            "amenityProvider": {
+                                "name": "BrandedFare"
+                            }
+                        },
+                        {
+                            "description": "BEVERAGE",
+                            "isChargeable": false,
+                            "amenityType": "MEAL",
+                            "amenityProvider": {
+                                "name": "BrandedFare"
+                            }
+                        },
+                        {
+                            "description": "SEAT SELECTION",
+                            "isChargeable": true,
+                            "amenityType": "BRANDED_FARES",
+                            "amenityProvider": {
+                                "name": "BrandedFare"
+                            }
+                        },
+                        {
+                            "description": "MILEAGE ACCRUAL",
+                            "isChargeable": false,
+                            "amenityType": "BRANDED_FARES",
+                            "amenityProvider": {
+                                "name": "BrandedFare"
+                            }
+                        },
+                        {
+                            "description": "UPGRADE ELIGIBILITY",
+                            "isChargeable": true,
+                            "amenityType": "BRANDED_FARES",
+                            "amenityProvider": {
+                                "name": "BrandedFare"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "segmentId": "17",
+                    "cabin": "ECONOMY",
+                    "fareBasis": "HYL0BALA",
+                    "brandedFare": "LIGHT",
+                    "brandedFareLabel": "ECONOMY LIGHT",
+                    "class": "H",
+                    "includedCheckedBags": {
+                        "quantity": 0
+                    },
+                    "includedCabinBags": {
+                        "quantity": 1
+                    },
+                    "amenities": [
+                        {
+                            "description": "CHECKED BAG 1PC OF 23KG 158CM",
+                            "isChargeable": true,
+                            "amenityType": "BAGGAGE",
+                            "amenityProvider": {
+                                "name": "BrandedFare"
+                            }
+                        },
+                        {
+                            "description": "SNACK",
+                            "isChargeable": false,
+                            "amenityType": "MEAL",
+                            "amenityProvider": {
+                                "name": "BrandedFare"
+                            }
+                        },
+                        {
+                            "description": "BEVERAGE",
+                            "isChargeable": false,
+                            "amenityType": "MEAL",
+                            "amenityProvider": {
+                                "name": "BrandedFare"
+                            }
+                        },
+                        {
+                            "description": "SEAT SELECTION",
+                            "isChargeable": true,
+                            "amenityType": "BRANDED_FARES",
+                            "amenityProvider": {
+                                "name": "BrandedFare"
+                            }
+                        },
+                        {
+                            "description": "MILEAGE ACCRUAL",
+                            "isChargeable": false,
+                            "amenityType": "BRANDED_FARES",
+                            "amenityProvider": {
+                                "name": "BrandedFare"
+                            }
+                        },
+                        {
+                            "description": "UPGRADE ELIGIBILITY",
+                            "isChargeable": true,
+                            "amenityType": "BRANDED_FARES",
+                            "amenityProvider": {
+                                "name": "BrandedFare"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

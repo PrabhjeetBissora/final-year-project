@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import axios from 'axios';
+// import fs from 'fs';
+
+//const fs = require("fs");
 
 const SearchForm = ({ onSearch }) => {
   const [startPoint, setSP] = useState("");
@@ -96,16 +100,56 @@ const GoogleMap = () => {
     LHR: { lat: 51.468, lng: -0.4551 }, // London Heathrow
     JFK: { lat: 40.6413, lng: -73.7781 }, // JFK
     LAX: { lat: 33.9416, lng: -118.4085 }, // LAX
+    ORK: { lat: 51.8413, lng: -8.4911 }, // Cork Airport
+    AMS: { lat: 52.3105, lng: 4.7683 }, // Amsterdam Schiphol Airport
+    BRU: { lat: 50.9010, lng: 4.4844 }, // Amsterdam Schiphol Airport
   };
 
-  const getAirportCoords = (iataCode) => airportCoords[iataCode] || null;
+  //const getAirportCoords = (iataCode) => airportCoords[iataCode] || null;
 
-  const displayFlightsOnMap = (flights) => {
+  const displayFlightsOnMap = (flightData) => {
     if (!map) {
       console.error("Map is not initialized yet.");
       return;
     }
 
+    if (!flightData.itineraries || !flightData.itineraries[0].segments) {
+      console.error("Flight data structure is incorrect:", flightData);
+      return;
+    }
+
+    //flights = flightData.itineraries.segments;
+
+    console.log("Segments: ", flightData.itineraries[0].segments);
+
+    flightData.itineraries[0].segments.forEach((flight) => {
+
+      console.log("Flight: ", flight);
+
+      const origin = flight.departure.iataCode;
+      const destination = flight.arrival.iataCode;
+
+      const originCoords = airportCoords[origin];
+      const destinationCoords = airportCoords[destination];
+
+      if (!originCoords || !destinationCoords) {
+        console.error(`Coordinates not found for ${origin} or ${destination}`);
+        return;
+      }
+
+      // Draw flight path
+      new window.google.maps.Polyline({
+        path: [originCoords, destinationCoords],
+        geodesic: true,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        strokeWeight: 3,
+        map: map,
+      });
+
+    });
+
+    /*
     flights.forEach((flight) => {
       const origin = flight.itineraries[0].segments[0].departure.iataCode;
       const destination = flight.itineraries[0].segments.slice(-1)[0].arrival.iataCode;
@@ -127,6 +171,7 @@ const GoogleMap = () => {
         map: map,
       });
     });
+    */
   };
 
   const initMap = () => {
@@ -166,13 +211,16 @@ const GoogleMap = () => {
   
     try {
       const nearestAirport = await getNearestAirport(latitude, longitude);
+      console.log("nearestAirport:" , nearestAirport);
+      console.log("latitude:" , latitude);
+      console.log("longitude:" , longitude);
       if (nearestAirport) {
         console.log(`Nearest airport found: ${nearestAirport.iataCode}`);
         return {
           code: nearestAirport.iataCode,
           coords: {
-            lat: nearestAirport.geoCode.latitude,
-            lng: nearestAirport.geoCode.longitude
+            lat: nearestAirport.latitude,
+            lng: nearestAirport.longitude
           }
         };
       } else {
@@ -185,33 +233,25 @@ const GoogleMap = () => {
     return null;
   };
   
-
-
   const getNearestAirport = async (latitude, longitude) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/nearest-airports?latitude=${latitude}&longitude=${longitude}`);
-      const data = await response.json();
-      console.log("Nearest Airports:", data);
-  
-      if (data.errors || !data.data || data.data.length === 0) {
-        alert("No airports found nearby.");
+      const response = await axios.get('http://localhost:5000/api/nearest-airports', {
+        params: {
+          latitude,
+          longitude,
+        },
+      });
 
-        if(data.errors){
-          console.log("Error", data.errors)
-        }
-        if(!data.data){
-          console.log("No data in api output")
-        }
-        if(data.data.length === 0){
-          console.log("Data length is 0")
-        }
-        return null;
+      if (response.data.nearestAirports) {
+        console.log(response.data.nearestAirports);
+      } else {
+        alert('No nearby airports found.');
       }
-  
-      return data.data[0]; // Return the first nearest airport
-    } catch (error) {
-      console.error("Error fetching nearest airport:", error);
-      return null;
+
+      return response.data.nearestAirports[0];
+    } catch (err) {
+      console.error('Error fetching nearest airports:', err);
+      alert('Failed to fetch nearest airports.');
     }
   };  
 
@@ -229,6 +269,8 @@ const GoogleMap = () => {
 
     directionsService.route(request, (result, status) => {
       if (status === window.google.maps.DirectionsStatus.OK) {
+        console.log("Transit request: ", result)
+
         directionsRenderer.setDirections(result);
 
         const leg = result.routes[0].legs[0]; // Extract first leg of journey
@@ -242,11 +284,48 @@ const GoogleMap = () => {
     });
   };
 
-
-  const fetchFlightData = async (origin, destination, retry = true) => {
-    const departureDate = "2025-10-02";
-    const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=1`;
+  const fetchFlightData = async (originLocationCode, destinationLocationCode, retry = true) => {
+    const departureDate = "2025-02-27";
+    //const departureDate = new Date().toISOString().slice(0, 10); // ref: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+    //const url = `https://api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=1`;
   
+    try {
+      const response = await axios.get('http://localhost:5000/api/flight-data', {
+        params: {
+          departureDate,
+          originLocationCode,
+          destinationLocationCode
+        },
+      });
+
+      if (response.data) {
+        console.log(response.data[0]);
+        setFlightDetails({
+          distance: "N/A", // Flight API might not provide exact distance
+          duration: response.data[0].itineraries[0].duration.replace("PT", ""),
+        });
+        displayFlightsOnMap(response.data[0]);
+
+        /*
+        const jsonData = JSON.stringify(response.data[0], null, 4);
+        fs.writeFile("flight-data.json", jsonData, (err) => {
+          if (err) {
+              console.error("❌ Error saving JSON file:", err);
+          } else {
+              console.log("✅ JSON file saved successfully!");
+          }
+        });
+        */
+      } else {
+        alert('No flight data found found.');
+      }
+
+    } catch (error){
+      console.error('Error fetching flight data:', error);
+      alert('Failed to fetch flight data.');
+    }
+
+    /*
     try {
       // Get token from backend
       const tokenResponse = await fetch('http://localhost:5000/api/token');
@@ -290,6 +369,7 @@ const GoogleMap = () => {
     } catch (error) {
       console.error("Fetch Error:", error);
     }
+      */
   };  
 
   const handleSearch = async (startPoint, endPoint) => {
@@ -345,6 +425,7 @@ const GoogleMap = () => {
   
     // Fetch flight data from Amadeus API
     fetchFlightData(startAirport.code, endAirport.code, setFlightDetails);
+    
   };
 
   return (
