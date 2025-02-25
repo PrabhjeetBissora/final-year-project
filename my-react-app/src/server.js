@@ -163,7 +163,7 @@ app.get('/api/flight-data', async(req, res) => {
       const flightData = response.data.data;
       //console.log("Amadeus API Response:", data);
 
-      fs.writeFileSync("flight-data.json", JSON.stringify(flightData[0], null, 4), (err) => {
+      fs.writeFileSync("flight-data.json", JSON.stringify(flightData, null, 4), (err) => {
         if (err) {
             console.error("❌ Error saving JSON file:", err);
         } else {

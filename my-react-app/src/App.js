@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import haversine from 'haversine-distance'
+
 // import fs from 'fs';
 
 //const fs = require("fs");
@@ -90,11 +92,16 @@ const GoogleMap = () => {
             <td>{groundDetailsEnd.distance}</td>
             <td>{groundDetailsEnd.duration}</td>
           </tr>
+          <tr>
+            <td>Total Duration</td>
+            <td colSpan="2"></td>
+          </tr>
         </tbody>
       </table>
     );
   };
 
+  /*
   const airportCoords = {
     DUB: { lat: 53.4256, lng: -6.2574 }, // Dublin Airport
     LHR: { lat: 51.468, lng: -0.4551 }, // London Heathrow
@@ -104,7 +111,8 @@ const GoogleMap = () => {
     AMS: { lat: 52.3105, lng: 4.7683 }, // Amsterdam Schiphol Airport
     BRU: { lat: 50.9010, lng: 4.4844 }, // Amsterdam Schiphol Airport
   };
-
+  */
+  
   //const getAirportCoords = (iataCode) => airportCoords[iataCode] || null;
 
   const displayFlightsOnMap = (flightData) => {
@@ -129,6 +137,7 @@ const GoogleMap = () => {
       const origin = flight.departure.iataCode;
       const destination = flight.arrival.iataCode;
 
+      /*
       const originCoords = airportCoords[origin];
       const destinationCoords = airportCoords[destination];
 
@@ -136,6 +145,7 @@ const GoogleMap = () => {
         console.error(`Coordinates not found for ${origin} or ${destination}`);
         return;
       }
+      
 
       // Draw flight path
       new window.google.maps.Polyline({
@@ -146,6 +156,8 @@ const GoogleMap = () => {
         strokeWeight: 3,
         map: map,
       });
+
+      */
 
     });
 
@@ -299,11 +311,39 @@ const GoogleMap = () => {
       });
 
       if (response.data) {
+        //displayFlightsOnMap(response.data[0]);
+
+        const cheapestFlight = response.data.reduce((prev, curr) => 
+          parseFloat(curr.price.grandTotal) < parseFloat(prev.price.grandTotal) ? curr : prev
+        );
+
+        console.log("Cheapest Flight Found:", cheapestFlight);
+
+        /*
+        const originCoords = airportCoords[originLocationCode];
+        const destinationCoords = airportCoords[destinationLocationCode];
+
+        let flightDistance = "N/A";
+        if (originCoords && destinationCoords) {
+          flightDistance = (haversine(
+            { lat: originCoords.lat, lon: originCoords.lng },
+            { lat: destinationCoords.lat, lon: destinationCoords.lng }
+          )).toFixed(2) + " km"; // Convert meters to km
+        }
+          */
+
         console.log(response.data[0]);
         setFlightDetails({
           distance: "N/A", // Flight API might not provide exact distance
+          //distance: flightDistance,
           duration: response.data[0].itineraries[0].duration.replace("PT", ""),
+          
+          //price: `${cheapestFlight.price.currency} ${cheapestFlight.price.grandTotal}`,
         });
+
+        const newDuration = timeConversionToMinutes(response.data[0].itineraries[0].duration.replace("PT", ""))
+        console.log("newDuration = ", newDuration);
+
         displayFlightsOnMap(response.data[0]);
 
         /*
@@ -372,6 +412,25 @@ const GoogleMap = () => {
       */
   };  
 
+  const timeConversionToMinutes = async (duration) => {
+    let hours = duration.match(/(\d+)\s*(H|hour|hours)/i);
+    let minutes = duration.match(/(\d+)\s*(M|min|mins)/i);
+
+    let parsedHours = hours ? parseInt(hours[1]): 0;
+    let parsedMinutes = minutes ? parseInt(minutes[1]): 0;
+
+    return ((parsedHours * 60) + parsedMinutes);
+  }
+
+  async function totalDuration() {
+    let startDuration = await timeConversionToMinutes(groundDetailsStart.duration);
+    let endDuration = await timeConversionToMinutes(groundDetailsEnd.duration);
+    let flightDuration = await timeConversionToMinutes(flightDetails.duration);
+
+    let totalJourneyDuration = startDuration + endDuration + flightDuration;
+    console.log("totalJourneyDuration = ",totalJourneyDuration);
+  }
+
   const handleSearch = async (startPoint, endPoint) => {
     if (!startPoint || !endPoint) {
       alert("Please enter valid start and end locations.");
@@ -425,6 +484,7 @@ const GoogleMap = () => {
   
     // Fetch flight data from Amadeus API
     fetchFlightData(startAirport.code, endAirport.code, setFlightDetails);
+    totalDuration();
     
   };
 

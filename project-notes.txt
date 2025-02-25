@@ -31,3 +31,53 @@ https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=53.349805,
 Why I struggled to find the right API:
 
 (Amadeus API): Was not giving Irsh airports in Test Environment, but in Prod it was giving
+
+mongodb+srv://admin:bissora@fyp-cluster.4q0pr.mongodb.net/
+
+
+
+
+
+
+
+
+Which apis i need from amadeus:
+
+Flight Offers Search
+Nearest relebvant airports
+
+
+https://www.google.ie/maps/search/london+airports/@51.4968651,-0.4394301,9z?entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoASAFQAw%3D%3D
+
+
+
+
+lucan, dublin
+eiffel tower, paris
+
+The regex /(\d+)\s*(H|hour)/i is used to extract the number of hours from a time string. Let's break it down:
+
+🔍 Breakdown of /(\d+)\s*(H|hour)/i
+/.../ → Defines a regular expression.
+(\d+)
+\d+ → Matches one or more digits (\d represents any number from 0-9).
+() → Capturing group, so the number (hours) is stored for later use.
+\s*
+\s* → Matches zero or more whitespace characters (spaces, tabs, etc.).
+This ensures that whether there is a space ("1 hour") or not ("1H"), the match still works.
+(H|hour)
+Matches either "H" or "hour", meaning it works for both "1H" and "1 hour".
+| (pipe) means "OR", so it checks for both "H" and "hour".
+() → Capturing group to match either "H" or "hour".
+i (Case-Insensitive Flag)
+The i flag makes the regex case-insensitive.
+It will match "h", "H", "Hour", "hour", etc.
+
+
+<!-- <td colSpan="2">{timeConversionToMinutes(groundDetailsStart.duration)}</td> -->
+
+<td colSpan="2">
+              <script>
+                timeConversionToMinutes(groundDetailsStart.duration);
+              </script>
+            </td> 
