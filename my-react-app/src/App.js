@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import haversine from 'haversine-distance'
 
+
+
 // import fs from 'fs';
 
 //const fs = require("fs");
@@ -45,6 +47,10 @@ const GoogleMap = () => {
   const [groundDetailsStart, setGroundDetailsStart] = useState({});
   const [groundDetailsEnd, setGroundDetailsEnd] = useState({});
   const [flightDetails, setFlightDetails] = useState({});
+  const [totalDistance, setTotalDistance] = useState({});
+  const [carrierCode, setCarrierCode] = useState({});
+  const [destDetails, setDestDetails] = useState({});
+  const [destTemp, setDestTemp] = useState({});
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -83,7 +89,7 @@ const GoogleMap = () => {
             <td>{groundDetailsStart.duration}</td>
           </tr>
           <tr>
-            <td>Flight</td>
+            <td>Flight operated by Airline: {carrierCode.airlineCode}</td>
             <td>{flightDetails.distance}</td>
             <td>{flightDetails.duration}</td>
           </tr>
@@ -94,7 +100,12 @@ const GoogleMap = () => {
           </tr>
           <tr>
             <td>Total Duration</td>
-            <td colSpan="2"></td>
+            <td colSpan="2">{totalDistance.distance}</td>
+          </tr>
+          <tr>
+            <td>Temperature of endpoint</td>
+            <td>{destTemp.min}</td>
+            <td>{destTemp.max}</td>
           </tr>
         </tbody>
       </table>
@@ -215,17 +226,51 @@ const GoogleMap = () => {
       return null;
     }
   
-    const latitude = response.lat();
-    const longitude = response.lng();
+    var latitude = response.lat();
+    var longitude = response.lng();
   
     // Log geocoded coordinates
-    console.log(`Geocoded location ${location} to latitude: ${latitude}, longitude: ${longitude}`);
+    //console.log(`Geocoded location ${location} to latitude: ${latitude}, longitude: ${longitude}`);
   
     try {
       const nearestAirport = await getNearestAirport(latitude, longitude);
       console.log("nearestAirport:" , nearestAirport);
       console.log("latitude:" , latitude);
       console.log("longitude:" , longitude);
+      //const destTemperature = async (latitude, longitude, departureDate) => {
+      console.log("g_departureDate value is: " , g_departureDate);
+      let url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&start_date=${g_departureDate}&end_date=${g_departureDate}&daily=temperature_2m_max,temperature_2m_min&timezone=auto`
+
+      console.log("url value is: " , url);
+
+      fetch(url)
+        .then(response => {
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+        })
+
+        .then(data => {
+          console.log("Weather Data:", data); // Output the API response to the console
+
+          // Extract temperature values
+          let maxTemp = data.daily.temperature_2m_max[0];
+          let minTemp = data.daily.temperature_2m_min[0];
+
+          console.log(`Max Temp: ${maxTemp}°C`);
+          console.log(`Min Temp: ${minTemp}°C`);
+
+          setDestTemp({
+            max: maxTemp,
+            min: minTemp
+          })
+        })
+        .catch(error => console.error("Error fetching data:", error));
+      
+
+      //}
       if (nearestAirport) {
         console.log(`Nearest airport found: ${nearestAirport.iataCode}`);
         return {
@@ -267,7 +312,8 @@ const GoogleMap = () => {
     }
   };  
 
-  const calculateRoute = (directionsService, directionsRenderer, start, end, setDetails) => {
+  const calculateRoute = async (directionsService, directionsRenderer, start, end, setDetails) => {
+  //const calculateRoute = async (directionsService, directionsRenderer, start, end) => {
     if (!start || !end) {
       alert("Please enter valid locations.");
       return;
@@ -279,37 +325,62 @@ const GoogleMap = () => {
       travelMode: window.google.maps.TravelMode.TRANSIT,
     };
 
-    directionsService.route(request, (result, status) => {
-      if (status === window.google.maps.DirectionsStatus.OK) {
-        console.log("Transit request: ", result)
+    setTimeout(() => {
 
-        directionsRenderer.setDirections(result);
+      directionsService.route(request, (result, status) => {
+        if (status === window.google.maps.DirectionsStatus.OK) {
+          console.log("Transit request: ", result)
+        
+          
 
-        const leg = result.routes[0].legs[0]; // Extract first leg of journey
-        setDetails({
-          distance: leg.distance.text, // Example: "15 km"
-          duration: leg.duration.text, // Example: "30 mins"
-        });
-      } else {
-        alert("Directions request failed: " + status);
-      }
-    });
-  };
+          directionsRenderer.setDirections(result);
 
-  const fetchFlightData = async (originLocationCode, destinationLocationCode, retry = true) => {
-    const departureDate = "2025-02-27";
-    //const departureDate = new Date().toISOString().slice(0, 10); // ref: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
-    //const url = `https://api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=1`;
-  
-    try {
-      const response = await axios.get('http://localhost:5000/api/flight-data', {
-        params: {
-          departureDate,
-          originLocationCode,
-          destinationLocationCode
-        },
+          const leg = result.routes[0].legs[0]; // Extract first leg of journey
+
+          console.log("TRANSIT RESULT: ", result);
+          console.log("LEG: ", leg);
+
+          
+
+          
+          setDetails({
+            distance: leg.distance.text, // Example: "15 km"
+            duration: leg.duration.text, // Example: "30 mins"
+          });
+          
+
+          return leg.distance.text, leg.duration.text;
+
+        } else {
+          alert("Directions request failed: " + status);
+        }
       });
 
+    }, 10000);
+  };
+
+  var g_departureDate = "2025-03-03";
+  
+  const fetchFlightData = async (originLocationCode, destinationLocationCode, retry = true) => {
+    
+    //const departureDate = new Date().toISOString().slice(0, 10); // ref: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+    //const url = `https://api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=1`;
+
+
+    try {
+      console.log("iNSIDE TRY BLOCK:");
+      console.log(" try g_departureDate:", g_departureDate);
+      console.log("originLocationCode:", originLocationCode);
+      console.log("destinationLocationCode:", destinationLocationCode);
+      console.log("before get call ");
+      const response = await axios.get('http://localhost:5000/api/flight-data', {
+        params: { g_departureDate,
+          originLocationCode,
+          destinationLocationCode },
+      });
+
+      console.log("after get call ");
+      console.log("2response.data:", response.data);
       if (response.data) {
         //displayFlightsOnMap(response.data[0]);
 
@@ -333,6 +404,8 @@ const GoogleMap = () => {
           */
 
         console.log(response.data[0]);
+        console.log("setFlightDetails duration=", response.data[0].itineraries[0].duration.replace("PT", ""));
+
         setFlightDetails({
           distance: "N/A", // Flight API might not provide exact distance
           //distance: flightDistance,
@@ -341,6 +414,17 @@ const GoogleMap = () => {
           //price: `${cheapestFlight.price.currency} ${cheapestFlight.price.grandTotal}`,
         });
 
+        console.log("groundDetailsStart=", groundDetailsStart);
+        console.log("groundDetailsStart.duration=", groundDetailsStart.duration);
+        console.log("groundDetailsEnd.duration=", groundDetailsEnd.duration);
+        console.log("flightDetails.duration=", flightDetails.duration);
+    
+        setCarrierCode({
+          airlineCode: response.data[0].itineraries[0].segments[0].carrierCode,
+        });
+
+
+        console.log("response.data[0].itineraries[0].duration : ", response.data[0].itineraries[0].duration.replace("PT", ""));
         const newDuration = timeConversionToMinutes(response.data[0].itineraries[0].duration.replace("PT", ""))
         console.log("newDuration = ", newDuration);
 
@@ -356,11 +440,16 @@ const GoogleMap = () => {
           }
         });
         */
+
+        totalDuration();
+        
       } else {
         alert('No flight data found found.');
       }
 
+
     } catch (error){
+      console.log("iNSIDE catch  BLOCK:");
       console.error('Error fetching flight data:', error);
       alert('Failed to fetch flight data.');
     }
@@ -413,9 +502,12 @@ const GoogleMap = () => {
   };  
 
   const timeConversionToMinutes = async (duration) => {
+
+    console.log("duration=", duration);
     let hours = duration.match(/(\d+)\s*(H|hour|hours)/i);
     let minutes = duration.match(/(\d+)\s*(M|min|mins)/i);
-
+    console.log("hours=", hours);
+    console.log("minutes=", minutes);
     let parsedHours = hours ? parseInt(hours[1]): 0;
     let parsedMinutes = minutes ? parseInt(minutes[1]): 0;
 
@@ -423,13 +515,29 @@ const GoogleMap = () => {
   }
 
   async function totalDuration() {
+    console.log("groundDetailsStart=", groundDetailsStart);
+    console.log("groundDetailsStart.duration=", groundDetailsStart.duration);
+    console.log("groundDetailsEnd.duration=", groundDetailsEnd.duration);
+    console.log("flightDetails.duration=", flightDetails.duration);
     let startDuration = await timeConversionToMinutes(groundDetailsStart.duration);
     let endDuration = await timeConversionToMinutes(groundDetailsEnd.duration);
     let flightDuration = await timeConversionToMinutes(flightDetails.duration);
 
-    let totalJourneyDuration = startDuration + endDuration + flightDuration;
-    console.log("totalJourneyDuration = ",totalJourneyDuration);
+    let totalJourneyDurationM = startDuration + endDuration + flightDuration;
+
+    let hours = Math.floor(totalJourneyDurationM / 60) + " hours "; // divide by 60 then use floor() to get num of hours
+    let mins = (totalJourneyDurationM % 60) + " mins";
+
+    let totalJourneyDurationHM = hours + mins;
+
+    console.log("totalJourneyDuration = ",totalJourneyDurationHM);
+
+    setTotalDistance({
+      distance: totalJourneyDurationHM
+    });
   }
+
+
 
   const handleSearch = async (startPoint, endPoint) => {
     if (!startPoint || !endPoint) {
@@ -447,7 +555,7 @@ const GoogleMap = () => {
     });
     */
   
-    console.log(`Searching for nearest airports for start point: ${startPoint} and end point: ${endPoint}`);
+    //console.log(`Searching for nearest airports for start point: ${startPoint} and end point: ${endPoint}`);
   
     // Get nearest airports for both start and end points
     const startAirport = await findNearestAirport(startPoint);
@@ -465,27 +573,56 @@ const GoogleMap = () => {
     const directionsService2 = new window.google.maps.DirectionsService();
   
     // Route 1: Start Point -> Nearest Airport
-    calculateRoute(
+
+    console.log("BEFORE groundDetailsStart=", groundDetailsStart);
+    console.log("groundDetailsStart.duration=", groundDetailsStart.duration);
+    console.log("groundDetailsEnd.duration=", groundDetailsEnd.duration);
+    console.log("flightDetails.duration=", flightDetails.duration);
+
+    console.log("BEFORE startPoint=", startPoint);
+    console.log("BEFORE airport=", startAirport.code);
+
+    let startDistance, startDuration = await calculateRoute(
       directionsService1,
       directionsRenderer1,
       startPoint,
       `${startAirport.code} Airport`,
       setGroundDetailsStart
     );
+
   
+
+    console.log("AFTER startDistance=", startDistance);
+    console.log("AFTER startDuration=", startDuration);
+
+    setGroundDetailsStart({
+      distance: startDistance,
+      duration: startDuration
+    })
+  
+    console.log("AFTER groundDetailsStart=", groundDetailsStart);
+    console.log("groundDetailsStart.duration=", groundDetailsStart.duration);
+    console.log("groundDetailsEnd.duration=", groundDetailsEnd.duration);
+    console.log("flightDetails.duration=", flightDetails.duration);
+
     // Route 2: Nearest Airport -> End Point
-    calculateRoute(
+    let endDistance, endDuration = await calculateRoute(
       directionsService2,
       directionsRenderer2,
       `${endAirport.code} Airport`,
       endPoint,
       setGroundDetailsEnd
     );
+
+    setGroundDetailsEnd({
+      distance: endDistance,
+      duration: endDuration
+    })
   
     // Fetch flight data from Amadeus API
     fetchFlightData(startAirport.code, endAirport.code, setFlightDetails);
-    totalDuration();
-    
+    //totalDuration();
+    //destTemperature(longitude, latitude, departureDate);
   };
 
   return (

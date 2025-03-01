@@ -137,10 +137,10 @@ app.get('/api/nearest-airports', async (req, res) => {
 });
 
 app.get('/api/flight-data', async(req, res) => {
-    const { originLocationCode, destinationLocationCode, departureDate, adults } = req.query;
-    console.log(`Received request for airports: ${originLocationCode}, ${destinationLocationCode}, on date: ${departureDate}`);
+    const { originLocationCode, destinationLocationCode, g_departureDate, adults } = req.query;
+    console.log(`Received request for airports: ${originLocationCode}, ${destinationLocationCode}, on date: ${g_departureDate}`);
 
-    const url = `https://api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&adults=1`;
+    const url = `https://api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${g_departureDate}&adults=1`;
 
     try {
       // Get token from backend
@@ -148,7 +148,7 @@ app.get('/api/flight-data', async(req, res) => {
       //console.log("tokenResponse: ", tokenResponse);
       //const tokenData = await tokenResponse.data.token;
       const token = await tokenResponse.data.token;
-      //console.log("token: ", token);
+      console.log("token: ", token);
       //const token = tokenData.token;
   
       //console.log("Requesting Amadeus API with Token:", token);
