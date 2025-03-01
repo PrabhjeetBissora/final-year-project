@@ -292,8 +292,8 @@
         ],
         "price": {
             "currency": "EUR",
-            "total": "436.56",
-            "base": "290.00",
+            "total": "406.56",
+            "base": "260.00",
             "fees": [
                 {
                     "amount": "0.00",
@@ -304,7 +304,7 @@
                     "type": "TICKETING"
                 }
             ],
-            "grandTotal": "436.56"
+            "grandTotal": "406.56"
         },
         "pricingOptions": {
             "fareType": [
@@ -322,8 +322,8 @@
                 "travelerType": "ADULT",
                 "price": {
                     "currency": "EUR",
-                    "total": "436.56",
-                    "base": "290.00"
+                    "total": "406.56",
+                    "base": "260.00"
                 },
                 "fareDetailsBySegment": [
                     {
@@ -377,10 +377,10 @@
                     {
                         "segmentId": "42",
                         "cabin": "ECONOMY",
-                        "fareBasis": "SF0CLC00",
+                        "fareBasis": "HF0CLC00",
                         "brandedFare": "CLASSIC",
                         "brandedFareLabel": "CLASSIC",
-                        "class": "S",
+                        "class": "H",
                         "includedCheckedBags": {
                             "quantity": 1
                         },
@@ -1081,232 +1081,6 @@
         "nonHomogeneous": false,
         "oneWay": false,
         "isUpsellOffer": false,
-        "lastTicketingDate": "2025-03-03",
-        "lastTicketingDateTime": "2025-03-03",
-        "numberOfBookableSeats": 2,
-        "itineraries": [
-            {
-                "duration": "PT28H45M",
-                "segments": [
-                    {
-                        "departure": {
-                            "iataCode": "DUB",
-                            "terminal": "1",
-                            "at": "2025-03-03T04:25:00"
-                        },
-                        "arrival": {
-                            "iataCode": "LIS",
-                            "terminal": "1",
-                            "at": "2025-03-03T07:20:00"
-                        },
-                        "carrierCode": "TP",
-                        "number": "1327",
-                        "aircraft": {
-                            "code": "E95"
-                        },
-                        "operating": {
-                            "carrierCode": "NI"
-                        },
-                        "duration": "PT2H55M",
-                        "id": "53",
-                        "numberOfStops": 0,
-                        "blacklistedInEU": false
-                    },
-                    {
-                        "departure": {
-                            "iataCode": "LIS",
-                            "terminal": "1",
-                            "at": "2025-03-04T06:40:00"
-                        },
-                        "arrival": {
-                            "iataCode": "ORY",
-                            "terminal": "1",
-                            "at": "2025-03-04T10:10:00"
-                        },
-                        "carrierCode": "TP",
-                        "number": "430",
-                        "aircraft": {
-                            "code": "32N"
-                        },
-                        "operating": {
-                            "carrierCode": "TP"
-                        },
-                        "duration": "PT2H30M",
-                        "id": "54",
-                        "numberOfStops": 0,
-                        "blacklistedInEU": false
-                    }
-                ]
-            }
-        ],
-        "price": {
-            "currency": "EUR",
-            "total": "486.56",
-            "base": "309.00",
-            "fees": [
-                {
-                    "amount": "0.00",
-                    "type": "SUPPLIER"
-                },
-                {
-                    "amount": "0.00",
-                    "type": "TICKETING"
-                }
-            ],
-            "grandTotal": "486.56"
-        },
-        "pricingOptions": {
-            "fareType": [
-                "PUBLISHED"
-            ],
-            "includedCheckedBagsOnly": true
-        },
-        "validatingAirlineCodes": [
-            "TP"
-        ],
-        "travelerPricings": [
-            {
-                "travelerId": "1",
-                "fareOption": "STANDARD",
-                "travelerType": "ADULT",
-                "price": {
-                    "currency": "EUR",
-                    "total": "486.56",
-                    "base": "309.00"
-                },
-                "fareDetailsBySegment": [
-                    {
-                        "segmentId": "53",
-                        "cabin": "ECONOMY",
-                        "fareBasis": "QF0CLC00",
-                        "brandedFare": "CLASSIC",
-                        "brandedFareLabel": "CLASSIC",
-                        "class": "Q",
-                        "includedCheckedBags": {
-                            "quantity": 1
-                        },
-                        "includedCabinBags": {
-                            "quantity": 1
-                        },
-                        "amenities": [
-                            {
-                                "description": "SECOND BAG UP TO 23KG AND158CM",
-                                "isChargeable": true,
-                                "amenityType": "BAGGAGE",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
-                                "isChargeable": true,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "SEAT RESERVATION",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY FAST SECURITY LANE",
-                                "isChargeable": true,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "segmentId": "54",
-                        "cabin": "BUSINESS",
-                        "fareBasis": "JF0EXE02",
-                        "brandedFare": "EXECUTIVE",
-                        "brandedFareLabel": "EXECUTIVE",
-                        "class": "J",
-                        "includedCheckedBags": {
-                            "quantity": 1
-                        },
-                        "includedCabinBags": {
-                            "quantity": 2
-                        },
-                        "amenities": [
-                            {
-                                "description": "SEAT RESERVATION",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY CHECK IN",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY BOARDING",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY BAGGAGE",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY FAST SECURITY LANE",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "MILEAGE ACCRUAL",
-                                "isChargeable": false,
-                                "amenityType": "BRANDED_FARES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "CHANGE BEFORE DEPARTURE",
-                                "isChargeable": true,
-                                "amenityType": "BRANDED_FARES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "type": "flight-offer",
-        "id": "8",
-        "source": "GDS",
-        "instantTicketingRequired": false,
-        "nonHomogeneous": false,
-        "oneWay": false,
-        "isUpsellOffer": false,
         "lastTicketingDate": "2025-03-01",
         "lastTicketingDateTime": "2025-03-01",
         "numberOfBookableSeats": 4,
@@ -1433,7 +1207,7 @@
     },
     {
         "type": "flight-offer",
-        "id": "9",
+        "id": "8",
         "source": "GDS",
         "instantTicketingRequired": false,
         "nonHomogeneous": false,
@@ -1565,7 +1339,7 @@
     },
     {
         "type": "flight-offer",
-        "id": "10",
+        "id": "9",
         "source": "GDS",
         "instantTicketingRequired": false,
         "nonHomogeneous": false,
@@ -1573,7 +1347,7 @@
         "isUpsellOffer": false,
         "lastTicketingDate": "2025-03-03",
         "lastTicketingDateTime": "2025-03-03",
-        "numberOfBookableSeats": 2,
+        "numberOfBookableSeats": 1,
         "itineraries": [
             {
                 "duration": "PT22H5M",
@@ -1791,7 +1565,7 @@
     },
     {
         "type": "flight-offer",
-        "id": "11",
+        "id": "10",
         "source": "GDS",
         "instantTicketingRequired": false,
         "nonHomogeneous": false,
@@ -1923,7 +1697,7 @@
     },
     {
         "type": "flight-offer",
-        "id": "12",
+        "id": "11",
         "source": "GDS",
         "instantTicketingRequired": false,
         "nonHomogeneous": false,
@@ -2129,6 +1903,232 @@
                                 "description": "PRIORITY FAST SECURITY LANE",
                                 "isChargeable": false,
                                 "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "flight-offer",
+        "id": "12",
+        "source": "GDS",
+        "instantTicketingRequired": false,
+        "nonHomogeneous": false,
+        "oneWay": false,
+        "isUpsellOffer": false,
+        "lastTicketingDate": "2025-03-03",
+        "lastTicketingDateTime": "2025-03-03",
+        "numberOfBookableSeats": 1,
+        "itineraries": [
+            {
+                "duration": "PT28H45M",
+                "segments": [
+                    {
+                        "departure": {
+                            "iataCode": "DUB",
+                            "terminal": "1",
+                            "at": "2025-03-03T04:25:00"
+                        },
+                        "arrival": {
+                            "iataCode": "LIS",
+                            "terminal": "1",
+                            "at": "2025-03-03T07:20:00"
+                        },
+                        "carrierCode": "TP",
+                        "number": "1327",
+                        "aircraft": {
+                            "code": "E95"
+                        },
+                        "operating": {
+                            "carrierCode": "NI"
+                        },
+                        "duration": "PT2H55M",
+                        "id": "53",
+                        "numberOfStops": 0,
+                        "blacklistedInEU": false
+                    },
+                    {
+                        "departure": {
+                            "iataCode": "LIS",
+                            "terminal": "1",
+                            "at": "2025-03-04T06:40:00"
+                        },
+                        "arrival": {
+                            "iataCode": "ORY",
+                            "terminal": "1",
+                            "at": "2025-03-04T10:10:00"
+                        },
+                        "carrierCode": "TP",
+                        "number": "430",
+                        "aircraft": {
+                            "code": "32N"
+                        },
+                        "operating": {
+                            "carrierCode": "TP"
+                        },
+                        "duration": "PT2H30M",
+                        "id": "54",
+                        "numberOfStops": 0,
+                        "blacklistedInEU": false
+                    }
+                ]
+            }
+        ],
+        "price": {
+            "currency": "EUR",
+            "total": "516.56",
+            "base": "327.00",
+            "fees": [
+                {
+                    "amount": "0.00",
+                    "type": "SUPPLIER"
+                },
+                {
+                    "amount": "0.00",
+                    "type": "TICKETING"
+                }
+            ],
+            "grandTotal": "516.56"
+        },
+        "pricingOptions": {
+            "fareType": [
+                "PUBLISHED"
+            ],
+            "includedCheckedBagsOnly": true
+        },
+        "validatingAirlineCodes": [
+            "TP"
+        ],
+        "travelerPricings": [
+            {
+                "travelerId": "1",
+                "fareOption": "STANDARD",
+                "travelerType": "ADULT",
+                "price": {
+                    "currency": "EUR",
+                    "total": "516.56",
+                    "base": "327.00"
+                },
+                "fareDetailsBySegment": [
+                    {
+                        "segmentId": "53",
+                        "cabin": "ECONOMY",
+                        "fareBasis": "HF0CLC00",
+                        "brandedFare": "CLASSIC",
+                        "brandedFareLabel": "CLASSIC",
+                        "class": "H",
+                        "includedCheckedBags": {
+                            "quantity": 1
+                        },
+                        "includedCabinBags": {
+                            "quantity": 1
+                        },
+                        "amenities": [
+                            {
+                                "description": "SECOND BAG UP TO 23KG AND158CM",
+                                "isChargeable": true,
+                                "amenityType": "BAGGAGE",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
+                                "isChargeable": true,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "SEAT RESERVATION",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY FAST SECURITY LANE",
+                                "isChargeable": true,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "segmentId": "54",
+                        "cabin": "BUSINESS",
+                        "fareBasis": "JF0EXE02",
+                        "brandedFare": "EXECUTIVE",
+                        "brandedFareLabel": "EXECUTIVE",
+                        "class": "J",
+                        "includedCheckedBags": {
+                            "quantity": 1
+                        },
+                        "includedCabinBags": {
+                            "quantity": 2
+                        },
+                        "amenities": [
+                            {
+                                "description": "SEAT RESERVATION",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY CHECK IN",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY BOARDING",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY BAGGAGE",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY FAST SECURITY LANE",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "MILEAGE ACCRUAL",
+                                "isChargeable": false,
+                                "amenityType": "BRANDED_FARES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "CHANGE BEFORE DEPARTURE",
+                                "isChargeable": true,
+                                "amenityType": "BRANDED_FARES",
                                 "amenityProvider": {
                                     "name": "BrandedFare"
                                 }
@@ -3353,878 +3353,6 @@
         "isUpsellOffer": false,
         "lastTicketingDate": "2025-03-03",
         "lastTicketingDateTime": "2025-03-03",
-        "numberOfBookableSeats": 2,
-        "itineraries": [
-            {
-                "duration": "PT9H5M",
-                "segments": [
-                    {
-                        "departure": {
-                            "iataCode": "DUB",
-                            "terminal": "1",
-                            "at": "2025-03-03T04:25:00"
-                        },
-                        "arrival": {
-                            "iataCode": "LIS",
-                            "terminal": "1",
-                            "at": "2025-03-03T07:20:00"
-                        },
-                        "carrierCode": "TP",
-                        "number": "1327",
-                        "aircraft": {
-                            "code": "E95"
-                        },
-                        "operating": {
-                            "carrierCode": "NI"
-                        },
-                        "duration": "PT2H55M",
-                        "id": "3",
-                        "numberOfStops": 0,
-                        "blacklistedInEU": false
-                    },
-                    {
-                        "departure": {
-                            "iataCode": "LIS",
-                            "terminal": "1",
-                            "at": "2025-03-03T10:55:00"
-                        },
-                        "arrival": {
-                            "iataCode": "ORY",
-                            "terminal": "1",
-                            "at": "2025-03-03T14:30:00"
-                        },
-                        "carrierCode": "TP",
-                        "number": "434",
-                        "aircraft": {
-                            "code": "32N"
-                        },
-                        "operating": {
-                            "carrierCode": "TP"
-                        },
-                        "duration": "PT2H35M",
-                        "id": "4",
-                        "numberOfStops": 0,
-                        "blacklistedInEU": false
-                    }
-                ]
-            }
-        ],
-        "price": {
-            "currency": "EUR",
-            "total": "553.10",
-            "base": "410.00",
-            "fees": [
-                {
-                    "amount": "0.00",
-                    "type": "SUPPLIER"
-                },
-                {
-                    "amount": "0.00",
-                    "type": "TICKETING"
-                }
-            ],
-            "grandTotal": "553.10"
-        },
-        "pricingOptions": {
-            "fareType": [
-                "PUBLISHED"
-            ],
-            "includedCheckedBagsOnly": true
-        },
-        "validatingAirlineCodes": [
-            "TP"
-        ],
-        "travelerPricings": [
-            {
-                "travelerId": "1",
-                "fareOption": "STANDARD",
-                "travelerType": "ADULT",
-                "price": {
-                    "currency": "EUR",
-                    "total": "553.10",
-                    "base": "410.00"
-                },
-                "fareDetailsBySegment": [
-                    {
-                        "segmentId": "3",
-                        "cabin": "ECONOMY",
-                        "fareBasis": "QF0CLC00",
-                        "brandedFare": "CLASSIC",
-                        "brandedFareLabel": "CLASSIC",
-                        "class": "Q",
-                        "includedCheckedBags": {
-                            "quantity": 1
-                        },
-                        "includedCabinBags": {
-                            "quantity": 1
-                        },
-                        "amenities": [
-                            {
-                                "description": "SECOND BAG UP TO 23KG AND158CM",
-                                "isChargeable": true,
-                                "amenityType": "BAGGAGE",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
-                                "isChargeable": true,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "SEAT RESERVATION",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY FAST SECURITY LANE",
-                                "isChargeable": true,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "segmentId": "4",
-                        "cabin": "ECONOMY",
-                        "fareBasis": "YF0PLU00",
-                        "brandedFare": "PLUS",
-                        "brandedFareLabel": "PLUS",
-                        "class": "Y",
-                        "includedCheckedBags": {
-                            "quantity": 1
-                        },
-                        "includedCabinBags": {
-                            "quantity": 1
-                        },
-                        "amenities": [
-                            {
-                                "description": "SECOND BAG UP TO 23KG AND158CM",
-                                "isChargeable": true,
-                                "amenityType": "BAGGAGE",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "SEAT RESERVATION",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY CHECK IN",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY BAGGAGE",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY FAST SECURITY LANE",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "type": "flight-offer",
-        "id": "21",
-        "source": "GDS",
-        "instantTicketingRequired": false,
-        "nonHomogeneous": false,
-        "oneWay": false,
-        "isUpsellOffer": false,
-        "lastTicketingDate": "2025-03-03",
-        "lastTicketingDateTime": "2025-03-03",
-        "numberOfBookableSeats": 2,
-        "itineraries": [
-            {
-                "duration": "PT16H15M",
-                "segments": [
-                    {
-                        "departure": {
-                            "iataCode": "DUB",
-                            "terminal": "1",
-                            "at": "2025-03-03T04:25:00"
-                        },
-                        "arrival": {
-                            "iataCode": "LIS",
-                            "terminal": "1",
-                            "at": "2025-03-03T07:20:00"
-                        },
-                        "carrierCode": "TP",
-                        "number": "1327",
-                        "aircraft": {
-                            "code": "E95"
-                        },
-                        "operating": {
-                            "carrierCode": "NI"
-                        },
-                        "duration": "PT2H55M",
-                        "id": "23",
-                        "numberOfStops": 0,
-                        "blacklistedInEU": false
-                    },
-                    {
-                        "departure": {
-                            "iataCode": "LIS",
-                            "terminal": "1",
-                            "at": "2025-03-03T18:10:00"
-                        },
-                        "arrival": {
-                            "iataCode": "ORY",
-                            "terminal": "1",
-                            "at": "2025-03-03T21:40:00"
-                        },
-                        "carrierCode": "TP",
-                        "number": "440",
-                        "aircraft": {
-                            "code": "321"
-                        },
-                        "operating": {
-                            "carrierCode": "TP"
-                        },
-                        "duration": "PT2H30M",
-                        "id": "24",
-                        "numberOfStops": 0,
-                        "blacklistedInEU": false
-                    }
-                ]
-            }
-        ],
-        "price": {
-            "currency": "EUR",
-            "total": "553.10",
-            "base": "410.00",
-            "fees": [
-                {
-                    "amount": "0.00",
-                    "type": "SUPPLIER"
-                },
-                {
-                    "amount": "0.00",
-                    "type": "TICKETING"
-                }
-            ],
-            "grandTotal": "553.10"
-        },
-        "pricingOptions": {
-            "fareType": [
-                "PUBLISHED"
-            ],
-            "includedCheckedBagsOnly": true
-        },
-        "validatingAirlineCodes": [
-            "TP"
-        ],
-        "travelerPricings": [
-            {
-                "travelerId": "1",
-                "fareOption": "STANDARD",
-                "travelerType": "ADULT",
-                "price": {
-                    "currency": "EUR",
-                    "total": "553.10",
-                    "base": "410.00"
-                },
-                "fareDetailsBySegment": [
-                    {
-                        "segmentId": "23",
-                        "cabin": "ECONOMY",
-                        "fareBasis": "QF0CLC00",
-                        "brandedFare": "CLASSIC",
-                        "brandedFareLabel": "CLASSIC",
-                        "class": "Q",
-                        "includedCheckedBags": {
-                            "quantity": 1
-                        },
-                        "includedCabinBags": {
-                            "quantity": 1
-                        },
-                        "amenities": [
-                            {
-                                "description": "SECOND BAG UP TO 23KG AND158CM",
-                                "isChargeable": true,
-                                "amenityType": "BAGGAGE",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
-                                "isChargeable": true,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "SEAT RESERVATION",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY FAST SECURITY LANE",
-                                "isChargeable": true,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "segmentId": "24",
-                        "cabin": "ECONOMY",
-                        "fareBasis": "YF0PLU00",
-                        "brandedFare": "PLUS",
-                        "brandedFareLabel": "PLUS",
-                        "class": "Y",
-                        "includedCheckedBags": {
-                            "quantity": 1
-                        },
-                        "includedCabinBags": {
-                            "quantity": 1
-                        },
-                        "amenities": [
-                            {
-                                "description": "SECOND BAG UP TO 23KG AND158CM",
-                                "isChargeable": true,
-                                "amenityType": "BAGGAGE",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "SEAT RESERVATION",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY CHECK IN",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY BAGGAGE",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY FAST SECURITY LANE",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "type": "flight-offer",
-        "id": "22",
-        "source": "GDS",
-        "instantTicketingRequired": false,
-        "nonHomogeneous": false,
-        "oneWay": false,
-        "isUpsellOffer": false,
-        "lastTicketingDate": "2025-03-03",
-        "lastTicketingDateTime": "2025-03-03",
-        "numberOfBookableSeats": 2,
-        "itineraries": [
-            {
-                "duration": "PT17H35M",
-                "segments": [
-                    {
-                        "departure": {
-                            "iataCode": "DUB",
-                            "terminal": "1",
-                            "at": "2025-03-03T04:25:00"
-                        },
-                        "arrival": {
-                            "iataCode": "LIS",
-                            "terminal": "1",
-                            "at": "2025-03-03T07:20:00"
-                        },
-                        "carrierCode": "TP",
-                        "number": "1327",
-                        "aircraft": {
-                            "code": "E95"
-                        },
-                        "operating": {
-                            "carrierCode": "NI"
-                        },
-                        "duration": "PT2H55M",
-                        "id": "35",
-                        "numberOfStops": 0,
-                        "blacklistedInEU": false
-                    },
-                    {
-                        "departure": {
-                            "iataCode": "LIS",
-                            "terminal": "1",
-                            "at": "2025-03-03T19:30:00"
-                        },
-                        "arrival": {
-                            "iataCode": "ORY",
-                            "terminal": "1",
-                            "at": "2025-03-03T23:00:00"
-                        },
-                        "carrierCode": "TP",
-                        "number": "442",
-                        "aircraft": {
-                            "code": "32N"
-                        },
-                        "operating": {
-                            "carrierCode": "TP"
-                        },
-                        "duration": "PT2H30M",
-                        "id": "36",
-                        "numberOfStops": 0,
-                        "blacklistedInEU": false
-                    }
-                ]
-            }
-        ],
-        "price": {
-            "currency": "EUR",
-            "total": "553.10",
-            "base": "410.00",
-            "fees": [
-                {
-                    "amount": "0.00",
-                    "type": "SUPPLIER"
-                },
-                {
-                    "amount": "0.00",
-                    "type": "TICKETING"
-                }
-            ],
-            "grandTotal": "553.10"
-        },
-        "pricingOptions": {
-            "fareType": [
-                "PUBLISHED"
-            ],
-            "includedCheckedBagsOnly": true
-        },
-        "validatingAirlineCodes": [
-            "TP"
-        ],
-        "travelerPricings": [
-            {
-                "travelerId": "1",
-                "fareOption": "STANDARD",
-                "travelerType": "ADULT",
-                "price": {
-                    "currency": "EUR",
-                    "total": "553.10",
-                    "base": "410.00"
-                },
-                "fareDetailsBySegment": [
-                    {
-                        "segmentId": "35",
-                        "cabin": "ECONOMY",
-                        "fareBasis": "QF0CLC00",
-                        "brandedFare": "CLASSIC",
-                        "brandedFareLabel": "CLASSIC",
-                        "class": "Q",
-                        "includedCheckedBags": {
-                            "quantity": 1
-                        },
-                        "includedCabinBags": {
-                            "quantity": 1
-                        },
-                        "amenities": [
-                            {
-                                "description": "SECOND BAG UP TO 23KG AND158CM",
-                                "isChargeable": true,
-                                "amenityType": "BAGGAGE",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
-                                "isChargeable": true,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "SEAT RESERVATION",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY FAST SECURITY LANE",
-                                "isChargeable": true,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "segmentId": "36",
-                        "cabin": "ECONOMY",
-                        "fareBasis": "YF0PLU00",
-                        "brandedFare": "PLUS",
-                        "brandedFareLabel": "PLUS",
-                        "class": "Y",
-                        "includedCheckedBags": {
-                            "quantity": 1
-                        },
-                        "includedCabinBags": {
-                            "quantity": 1
-                        },
-                        "amenities": [
-                            {
-                                "description": "SECOND BAG UP TO 23KG AND158CM",
-                                "isChargeable": true,
-                                "amenityType": "BAGGAGE",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "SEAT RESERVATION",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY CHECK IN",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY BAGGAGE",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY FAST SECURITY LANE",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "type": "flight-offer",
-        "id": "23",
-        "source": "GDS",
-        "instantTicketingRequired": false,
-        "nonHomogeneous": false,
-        "oneWay": false,
-        "isUpsellOffer": false,
-        "lastTicketingDate": "2025-03-03",
-        "lastTicketingDateTime": "2025-03-03",
-        "numberOfBookableSeats": 2,
-        "itineraries": [
-            {
-                "duration": "PT14H20M",
-                "segments": [
-                    {
-                        "departure": {
-                            "iataCode": "DUB",
-                            "terminal": "1",
-                            "at": "2025-03-03T04:25:00"
-                        },
-                        "arrival": {
-                            "iataCode": "LIS",
-                            "terminal": "1",
-                            "at": "2025-03-03T07:20:00"
-                        },
-                        "carrierCode": "TP",
-                        "number": "1327",
-                        "aircraft": {
-                            "code": "E95"
-                        },
-                        "operating": {
-                            "carrierCode": "NI"
-                        },
-                        "duration": "PT2H55M",
-                        "id": "25",
-                        "numberOfStops": 0,
-                        "blacklistedInEU": false
-                    },
-                    {
-                        "departure": {
-                            "iataCode": "LIS",
-                            "terminal": "1",
-                            "at": "2025-03-03T16:15:00"
-                        },
-                        "arrival": {
-                            "iataCode": "ORY",
-                            "terminal": "1",
-                            "at": "2025-03-03T19:45:00"
-                        },
-                        "carrierCode": "TP",
-                        "number": "438",
-                        "aircraft": {
-                            "code": "320"
-                        },
-                        "operating": {
-                            "carrierCode": "TP"
-                        },
-                        "duration": "PT2H30M",
-                        "id": "26",
-                        "numberOfStops": 0,
-                        "blacklistedInEU": false
-                    }
-                ]
-            }
-        ],
-        "price": {
-            "currency": "EUR",
-            "total": "553.10",
-            "base": "410.00",
-            "fees": [
-                {
-                    "amount": "0.00",
-                    "type": "SUPPLIER"
-                },
-                {
-                    "amount": "0.00",
-                    "type": "TICKETING"
-                }
-            ],
-            "grandTotal": "553.10"
-        },
-        "pricingOptions": {
-            "fareType": [
-                "PUBLISHED"
-            ],
-            "includedCheckedBagsOnly": true
-        },
-        "validatingAirlineCodes": [
-            "TP"
-        ],
-        "travelerPricings": [
-            {
-                "travelerId": "1",
-                "fareOption": "STANDARD",
-                "travelerType": "ADULT",
-                "price": {
-                    "currency": "EUR",
-                    "total": "553.10",
-                    "base": "410.00"
-                },
-                "fareDetailsBySegment": [
-                    {
-                        "segmentId": "25",
-                        "cabin": "ECONOMY",
-                        "fareBasis": "QF0CLC00",
-                        "brandedFare": "CLASSIC",
-                        "brandedFareLabel": "CLASSIC",
-                        "class": "Q",
-                        "includedCheckedBags": {
-                            "quantity": 1
-                        },
-                        "includedCabinBags": {
-                            "quantity": 1
-                        },
-                        "amenities": [
-                            {
-                                "description": "SECOND BAG UP TO 23KG AND158CM",
-                                "isChargeable": true,
-                                "amenityType": "BAGGAGE",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
-                                "isChargeable": true,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "SEAT RESERVATION",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY FAST SECURITY LANE",
-                                "isChargeable": true,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "segmentId": "26",
-                        "cabin": "ECONOMY",
-                        "fareBasis": "YF0PLU00",
-                        "brandedFare": "PLUS",
-                        "brandedFareLabel": "PLUS",
-                        "class": "Y",
-                        "includedCheckedBags": {
-                            "quantity": 1
-                        },
-                        "includedCabinBags": {
-                            "quantity": 1
-                        },
-                        "amenities": [
-                            {
-                                "description": "SECOND BAG UP TO 23KG AND158CM",
-                                "isChargeable": true,
-                                "amenityType": "BAGGAGE",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "SEAT RESERVATION",
-                                "isChargeable": false,
-                                "amenityType": "PRE_RESERVED_SEAT",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY CHECK IN",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY BAGGAGE",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            },
-                            {
-                                "description": "PRIORITY FAST SECURITY LANE",
-                                "isChargeable": false,
-                                "amenityType": "TRAVEL_SERVICES",
-                                "amenityProvider": {
-                                    "name": "BrandedFare"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "type": "flight-offer",
-        "id": "24",
-        "source": "GDS",
-        "instantTicketingRequired": false,
-        "nonHomogeneous": false,
-        "oneWay": false,
-        "isUpsellOffer": false,
-        "lastTicketingDate": "2025-03-03",
-        "lastTicketingDateTime": "2025-03-03",
         "numberOfBookableSeats": 3,
         "itineraries": [
             {
@@ -4435,7 +3563,7 @@
     },
     {
         "type": "flight-offer",
-        "id": "25",
+        "id": "21",
         "source": "GDS",
         "instantTicketingRequired": false,
         "nonHomogeneous": false,
@@ -4653,7 +3781,7 @@
     },
     {
         "type": "flight-offer",
-        "id": "26",
+        "id": "22",
         "source": "GDS",
         "instantTicketingRequired": false,
         "nonHomogeneous": false,
@@ -4855,7 +3983,7 @@
     },
     {
         "type": "flight-offer",
-        "id": "27",
+        "id": "23",
         "source": "GDS",
         "instantTicketingRequired": false,
         "nonHomogeneous": false,
@@ -5057,7 +4185,7 @@
     },
     {
         "type": "flight-offer",
-        "id": "28",
+        "id": "24",
         "source": "GDS",
         "instantTicketingRequired": false,
         "nonHomogeneous": false,
@@ -5065,7 +4193,7 @@
         "isUpsellOffer": false,
         "lastTicketingDate": "2025-03-03",
         "lastTicketingDateTime": "2025-03-03",
-        "numberOfBookableSeats": 2,
+        "numberOfBookableSeats": 1,
         "itineraries": [
             {
                 "duration": "PT7H40M",
@@ -5275,7 +4403,7 @@
     },
     {
         "type": "flight-offer",
-        "id": "29",
+        "id": "25",
         "source": "GDS",
         "instantTicketingRequired": false,
         "nonHomogeneous": false,
@@ -5283,7 +4411,443 @@
         "isUpsellOffer": false,
         "lastTicketingDate": "2025-03-03",
         "lastTicketingDateTime": "2025-03-03",
-        "numberOfBookableSeats": 2,
+        "numberOfBookableSeats": 1,
+        "itineraries": [
+            {
+                "duration": "PT14H20M",
+                "segments": [
+                    {
+                        "departure": {
+                            "iataCode": "DUB",
+                            "terminal": "1",
+                            "at": "2025-03-03T04:25:00"
+                        },
+                        "arrival": {
+                            "iataCode": "LIS",
+                            "terminal": "1",
+                            "at": "2025-03-03T07:20:00"
+                        },
+                        "carrierCode": "TP",
+                        "number": "1327",
+                        "aircraft": {
+                            "code": "E95"
+                        },
+                        "operating": {
+                            "carrierCode": "NI"
+                        },
+                        "duration": "PT2H55M",
+                        "id": "25",
+                        "numberOfStops": 0,
+                        "blacklistedInEU": false
+                    },
+                    {
+                        "departure": {
+                            "iataCode": "LIS",
+                            "terminal": "1",
+                            "at": "2025-03-03T16:15:00"
+                        },
+                        "arrival": {
+                            "iataCode": "ORY",
+                            "terminal": "1",
+                            "at": "2025-03-03T19:45:00"
+                        },
+                        "carrierCode": "TP",
+                        "number": "438",
+                        "aircraft": {
+                            "code": "320"
+                        },
+                        "operating": {
+                            "carrierCode": "TP"
+                        },
+                        "duration": "PT2H30M",
+                        "id": "26",
+                        "numberOfStops": 0,
+                        "blacklistedInEU": false
+                    }
+                ]
+            }
+        ],
+        "price": {
+            "currency": "EUR",
+            "total": "583.10",
+            "base": "428.00",
+            "fees": [
+                {
+                    "amount": "0.00",
+                    "type": "SUPPLIER"
+                },
+                {
+                    "amount": "0.00",
+                    "type": "TICKETING"
+                }
+            ],
+            "grandTotal": "583.10"
+        },
+        "pricingOptions": {
+            "fareType": [
+                "PUBLISHED"
+            ],
+            "includedCheckedBagsOnly": true
+        },
+        "validatingAirlineCodes": [
+            "TP"
+        ],
+        "travelerPricings": [
+            {
+                "travelerId": "1",
+                "fareOption": "STANDARD",
+                "travelerType": "ADULT",
+                "price": {
+                    "currency": "EUR",
+                    "total": "583.10",
+                    "base": "428.00"
+                },
+                "fareDetailsBySegment": [
+                    {
+                        "segmentId": "25",
+                        "cabin": "ECONOMY",
+                        "fareBasis": "HF0CLC00",
+                        "brandedFare": "CLASSIC",
+                        "brandedFareLabel": "CLASSIC",
+                        "class": "H",
+                        "includedCheckedBags": {
+                            "quantity": 1
+                        },
+                        "includedCabinBags": {
+                            "quantity": 1
+                        },
+                        "amenities": [
+                            {
+                                "description": "SECOND BAG UP TO 23KG AND158CM",
+                                "isChargeable": true,
+                                "amenityType": "BAGGAGE",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
+                                "isChargeable": true,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "SEAT RESERVATION",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY FAST SECURITY LANE",
+                                "isChargeable": true,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "segmentId": "26",
+                        "cabin": "ECONOMY",
+                        "fareBasis": "YF0PLU00",
+                        "brandedFare": "PLUS",
+                        "brandedFareLabel": "PLUS",
+                        "class": "Y",
+                        "includedCheckedBags": {
+                            "quantity": 1
+                        },
+                        "includedCabinBags": {
+                            "quantity": 1
+                        },
+                        "amenities": [
+                            {
+                                "description": "SECOND BAG UP TO 23KG AND158CM",
+                                "isChargeable": true,
+                                "amenityType": "BAGGAGE",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "SEAT RESERVATION",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY CHECK IN",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY BAGGAGE",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY FAST SECURITY LANE",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "flight-offer",
+        "id": "26",
+        "source": "GDS",
+        "instantTicketingRequired": false,
+        "nonHomogeneous": false,
+        "oneWay": false,
+        "isUpsellOffer": false,
+        "lastTicketingDate": "2025-03-03",
+        "lastTicketingDateTime": "2025-03-03",
+        "numberOfBookableSeats": 1,
+        "itineraries": [
+            {
+                "duration": "PT9H5M",
+                "segments": [
+                    {
+                        "departure": {
+                            "iataCode": "DUB",
+                            "terminal": "1",
+                            "at": "2025-03-03T04:25:00"
+                        },
+                        "arrival": {
+                            "iataCode": "LIS",
+                            "terminal": "1",
+                            "at": "2025-03-03T07:20:00"
+                        },
+                        "carrierCode": "TP",
+                        "number": "1327",
+                        "aircraft": {
+                            "code": "E95"
+                        },
+                        "operating": {
+                            "carrierCode": "NI"
+                        },
+                        "duration": "PT2H55M",
+                        "id": "3",
+                        "numberOfStops": 0,
+                        "blacklistedInEU": false
+                    },
+                    {
+                        "departure": {
+                            "iataCode": "LIS",
+                            "terminal": "1",
+                            "at": "2025-03-03T10:55:00"
+                        },
+                        "arrival": {
+                            "iataCode": "ORY",
+                            "terminal": "1",
+                            "at": "2025-03-03T14:30:00"
+                        },
+                        "carrierCode": "TP",
+                        "number": "434",
+                        "aircraft": {
+                            "code": "32N"
+                        },
+                        "operating": {
+                            "carrierCode": "TP"
+                        },
+                        "duration": "PT2H35M",
+                        "id": "4",
+                        "numberOfStops": 0,
+                        "blacklistedInEU": false
+                    }
+                ]
+            }
+        ],
+        "price": {
+            "currency": "EUR",
+            "total": "583.10",
+            "base": "428.00",
+            "fees": [
+                {
+                    "amount": "0.00",
+                    "type": "SUPPLIER"
+                },
+                {
+                    "amount": "0.00",
+                    "type": "TICKETING"
+                }
+            ],
+            "grandTotal": "583.10"
+        },
+        "pricingOptions": {
+            "fareType": [
+                "PUBLISHED"
+            ],
+            "includedCheckedBagsOnly": true
+        },
+        "validatingAirlineCodes": [
+            "TP"
+        ],
+        "travelerPricings": [
+            {
+                "travelerId": "1",
+                "fareOption": "STANDARD",
+                "travelerType": "ADULT",
+                "price": {
+                    "currency": "EUR",
+                    "total": "583.10",
+                    "base": "428.00"
+                },
+                "fareDetailsBySegment": [
+                    {
+                        "segmentId": "3",
+                        "cabin": "ECONOMY",
+                        "fareBasis": "HF0CLC00",
+                        "brandedFare": "CLASSIC",
+                        "brandedFareLabel": "CLASSIC",
+                        "class": "H",
+                        "includedCheckedBags": {
+                            "quantity": 1
+                        },
+                        "includedCabinBags": {
+                            "quantity": 1
+                        },
+                        "amenities": [
+                            {
+                                "description": "SECOND BAG UP TO 23KG AND158CM",
+                                "isChargeable": true,
+                                "amenityType": "BAGGAGE",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
+                                "isChargeable": true,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "SEAT RESERVATION",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY FAST SECURITY LANE",
+                                "isChargeable": true,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "segmentId": "4",
+                        "cabin": "ECONOMY",
+                        "fareBasis": "YF0PLU00",
+                        "brandedFare": "PLUS",
+                        "brandedFareLabel": "PLUS",
+                        "class": "Y",
+                        "includedCheckedBags": {
+                            "quantity": 1
+                        },
+                        "includedCabinBags": {
+                            "quantity": 1
+                        },
+                        "amenities": [
+                            {
+                                "description": "SECOND BAG UP TO 23KG AND158CM",
+                                "isChargeable": true,
+                                "amenityType": "BAGGAGE",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "SEAT RESERVATION",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY CHECK IN",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY BAGGAGE",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY FAST SECURITY LANE",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "flight-offer",
+        "id": "27",
+        "source": "GDS",
+        "instantTicketingRequired": false,
+        "nonHomogeneous": false,
+        "oneWay": false,
+        "isUpsellOffer": false,
+        "lastTicketingDate": "2025-03-03",
+        "lastTicketingDateTime": "2025-03-03",
+        "numberOfBookableSeats": 1,
         "itineraries": [
             {
                 "duration": "PT9H35M",
@@ -5493,7 +5057,7 @@
     },
     {
         "type": "flight-offer",
-        "id": "30",
+        "id": "28",
         "source": "GDS",
         "instantTicketingRequired": false,
         "nonHomogeneous": false,
@@ -5501,7 +5065,7 @@
         "isUpsellOffer": false,
         "lastTicketingDate": "2025-03-03",
         "lastTicketingDateTime": "2025-03-03",
-        "numberOfBookableSeats": 2,
+        "numberOfBookableSeats": 1,
         "itineraries": [
             {
                 "duration": "PT10H55M",
@@ -5711,6 +5275,442 @@
     },
     {
         "type": "flight-offer",
+        "id": "29",
+        "source": "GDS",
+        "instantTicketingRequired": false,
+        "nonHomogeneous": false,
+        "oneWay": false,
+        "isUpsellOffer": false,
+        "lastTicketingDate": "2025-03-03",
+        "lastTicketingDateTime": "2025-03-03",
+        "numberOfBookableSeats": 1,
+        "itineraries": [
+            {
+                "duration": "PT16H15M",
+                "segments": [
+                    {
+                        "departure": {
+                            "iataCode": "DUB",
+                            "terminal": "1",
+                            "at": "2025-03-03T04:25:00"
+                        },
+                        "arrival": {
+                            "iataCode": "LIS",
+                            "terminal": "1",
+                            "at": "2025-03-03T07:20:00"
+                        },
+                        "carrierCode": "TP",
+                        "number": "1327",
+                        "aircraft": {
+                            "code": "E95"
+                        },
+                        "operating": {
+                            "carrierCode": "NI"
+                        },
+                        "duration": "PT2H55M",
+                        "id": "23",
+                        "numberOfStops": 0,
+                        "blacklistedInEU": false
+                    },
+                    {
+                        "departure": {
+                            "iataCode": "LIS",
+                            "terminal": "1",
+                            "at": "2025-03-03T18:10:00"
+                        },
+                        "arrival": {
+                            "iataCode": "ORY",
+                            "terminal": "1",
+                            "at": "2025-03-03T21:40:00"
+                        },
+                        "carrierCode": "TP",
+                        "number": "440",
+                        "aircraft": {
+                            "code": "321"
+                        },
+                        "operating": {
+                            "carrierCode": "TP"
+                        },
+                        "duration": "PT2H30M",
+                        "id": "24",
+                        "numberOfStops": 0,
+                        "blacklistedInEU": false
+                    }
+                ]
+            }
+        ],
+        "price": {
+            "currency": "EUR",
+            "total": "583.10",
+            "base": "428.00",
+            "fees": [
+                {
+                    "amount": "0.00",
+                    "type": "SUPPLIER"
+                },
+                {
+                    "amount": "0.00",
+                    "type": "TICKETING"
+                }
+            ],
+            "grandTotal": "583.10"
+        },
+        "pricingOptions": {
+            "fareType": [
+                "PUBLISHED"
+            ],
+            "includedCheckedBagsOnly": true
+        },
+        "validatingAirlineCodes": [
+            "TP"
+        ],
+        "travelerPricings": [
+            {
+                "travelerId": "1",
+                "fareOption": "STANDARD",
+                "travelerType": "ADULT",
+                "price": {
+                    "currency": "EUR",
+                    "total": "583.10",
+                    "base": "428.00"
+                },
+                "fareDetailsBySegment": [
+                    {
+                        "segmentId": "23",
+                        "cabin": "ECONOMY",
+                        "fareBasis": "HF0CLC00",
+                        "brandedFare": "CLASSIC",
+                        "brandedFareLabel": "CLASSIC",
+                        "class": "H",
+                        "includedCheckedBags": {
+                            "quantity": 1
+                        },
+                        "includedCabinBags": {
+                            "quantity": 1
+                        },
+                        "amenities": [
+                            {
+                                "description": "SECOND BAG UP TO 23KG AND158CM",
+                                "isChargeable": true,
+                                "amenityType": "BAGGAGE",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
+                                "isChargeable": true,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "SEAT RESERVATION",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY FAST SECURITY LANE",
+                                "isChargeable": true,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "segmentId": "24",
+                        "cabin": "ECONOMY",
+                        "fareBasis": "YF0PLU00",
+                        "brandedFare": "PLUS",
+                        "brandedFareLabel": "PLUS",
+                        "class": "Y",
+                        "includedCheckedBags": {
+                            "quantity": 1
+                        },
+                        "includedCabinBags": {
+                            "quantity": 1
+                        },
+                        "amenities": [
+                            {
+                                "description": "SECOND BAG UP TO 23KG AND158CM",
+                                "isChargeable": true,
+                                "amenityType": "BAGGAGE",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "SEAT RESERVATION",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY CHECK IN",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY BAGGAGE",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY FAST SECURITY LANE",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "flight-offer",
+        "id": "30",
+        "source": "GDS",
+        "instantTicketingRequired": false,
+        "nonHomogeneous": false,
+        "oneWay": false,
+        "isUpsellOffer": false,
+        "lastTicketingDate": "2025-03-03",
+        "lastTicketingDateTime": "2025-03-03",
+        "numberOfBookableSeats": 1,
+        "itineraries": [
+            {
+                "duration": "PT17H35M",
+                "segments": [
+                    {
+                        "departure": {
+                            "iataCode": "DUB",
+                            "terminal": "1",
+                            "at": "2025-03-03T04:25:00"
+                        },
+                        "arrival": {
+                            "iataCode": "LIS",
+                            "terminal": "1",
+                            "at": "2025-03-03T07:20:00"
+                        },
+                        "carrierCode": "TP",
+                        "number": "1327",
+                        "aircraft": {
+                            "code": "E95"
+                        },
+                        "operating": {
+                            "carrierCode": "NI"
+                        },
+                        "duration": "PT2H55M",
+                        "id": "35",
+                        "numberOfStops": 0,
+                        "blacklistedInEU": false
+                    },
+                    {
+                        "departure": {
+                            "iataCode": "LIS",
+                            "terminal": "1",
+                            "at": "2025-03-03T19:30:00"
+                        },
+                        "arrival": {
+                            "iataCode": "ORY",
+                            "terminal": "1",
+                            "at": "2025-03-03T23:00:00"
+                        },
+                        "carrierCode": "TP",
+                        "number": "442",
+                        "aircraft": {
+                            "code": "32N"
+                        },
+                        "operating": {
+                            "carrierCode": "TP"
+                        },
+                        "duration": "PT2H30M",
+                        "id": "36",
+                        "numberOfStops": 0,
+                        "blacklistedInEU": false
+                    }
+                ]
+            }
+        ],
+        "price": {
+            "currency": "EUR",
+            "total": "583.10",
+            "base": "428.00",
+            "fees": [
+                {
+                    "amount": "0.00",
+                    "type": "SUPPLIER"
+                },
+                {
+                    "amount": "0.00",
+                    "type": "TICKETING"
+                }
+            ],
+            "grandTotal": "583.10"
+        },
+        "pricingOptions": {
+            "fareType": [
+                "PUBLISHED"
+            ],
+            "includedCheckedBagsOnly": true
+        },
+        "validatingAirlineCodes": [
+            "TP"
+        ],
+        "travelerPricings": [
+            {
+                "travelerId": "1",
+                "fareOption": "STANDARD",
+                "travelerType": "ADULT",
+                "price": {
+                    "currency": "EUR",
+                    "total": "583.10",
+                    "base": "428.00"
+                },
+                "fareDetailsBySegment": [
+                    {
+                        "segmentId": "35",
+                        "cabin": "ECONOMY",
+                        "fareBasis": "HF0CLC00",
+                        "brandedFare": "CLASSIC",
+                        "brandedFareLabel": "CLASSIC",
+                        "class": "H",
+                        "includedCheckedBags": {
+                            "quantity": 1
+                        },
+                        "includedCabinBags": {
+                            "quantity": 1
+                        },
+                        "amenities": [
+                            {
+                                "description": "SECOND BAG UP TO 23KG AND158CM",
+                                "isChargeable": true,
+                                "amenityType": "BAGGAGE",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
+                                "isChargeable": true,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "SEAT RESERVATION",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY FAST SECURITY LANE",
+                                "isChargeable": true,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "segmentId": "36",
+                        "cabin": "ECONOMY",
+                        "fareBasis": "YF0PLU00",
+                        "brandedFare": "PLUS",
+                        "brandedFareLabel": "PLUS",
+                        "class": "Y",
+                        "includedCheckedBags": {
+                            "quantity": 1
+                        },
+                        "includedCabinBags": {
+                            "quantity": 1
+                        },
+                        "amenities": [
+                            {
+                                "description": "SECOND BAG UP TO 23KG AND158CM",
+                                "isChargeable": true,
+                                "amenityType": "BAGGAGE",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "EXTRA LEG ROOM OR FRONT SEAT",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "SEAT RESERVATION",
+                                "isChargeable": false,
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY CHECK IN",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY BAGGAGE",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            },
+                            {
+                                "description": "PRIORITY FAST SECURITY LANE",
+                                "isChargeable": false,
+                                "amenityType": "TRAVEL_SERVICES",
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "flight-offer",
         "id": "31",
         "source": "GDS",
         "instantTicketingRequired": false,
@@ -5719,7 +5719,7 @@
         "isUpsellOffer": false,
         "lastTicketingDate": "2025-03-03",
         "lastTicketingDateTime": "2025-03-03",
-        "numberOfBookableSeats": 2,
+        "numberOfBookableSeats": 1,
         "itineraries": [
             {
                 "duration": "PT26H25M",
@@ -5937,7 +5937,7 @@
         "isUpsellOffer": false,
         "lastTicketingDate": "2025-03-03",
         "lastTicketingDateTime": "2025-03-03",
-        "numberOfBookableSeats": 2,
+        "numberOfBookableSeats": 1,
         "itineraries": [
             {
                 "duration": "PT28H45M",
@@ -6155,7 +6155,7 @@
         "isUpsellOffer": false,
         "lastTicketingDate": "2025-03-03",
         "lastTicketingDateTime": "2025-03-03",
-        "numberOfBookableSeats": 2,
+        "numberOfBookableSeats": 1,
         "itineraries": [
             {
                 "duration": "PT11H25M",
@@ -6213,8 +6213,8 @@
         ],
         "price": {
             "currency": "EUR",
-            "total": "611.10",
-            "base": "437.00",
+            "total": "641.10",
+            "base": "455.00",
             "fees": [
                 {
                     "amount": "0.00",
@@ -6225,7 +6225,7 @@
                     "type": "TICKETING"
                 }
             ],
-            "grandTotal": "611.10"
+            "grandTotal": "641.10"
         },
         "pricingOptions": {
             "fareType": [
@@ -6243,17 +6243,17 @@
                 "travelerType": "ADULT",
                 "price": {
                     "currency": "EUR",
-                    "total": "611.10",
-                    "base": "437.00"
+                    "total": "641.10",
+                    "base": "455.00"
                 },
                 "fareDetailsBySegment": [
                     {
                         "segmentId": "27",
                         "cabin": "ECONOMY",
-                        "fareBasis": "QF0CLC00",
+                        "fareBasis": "HF0CLC00",
                         "brandedFare": "CLASSIC",
                         "brandedFareLabel": "CLASSIC",
-                        "class": "Q",
+                        "class": "H",
                         "includedCheckedBags": {
                             "quantity": 1
                         },
