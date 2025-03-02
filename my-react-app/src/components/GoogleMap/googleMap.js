@@ -69,10 +69,11 @@ console.log("----------------------IN GOOGL,E MAP COMPONENT --------------------
     //if (scriptLoaded.current) return; // Skip if script is already loaded
     //scriptLoaded.current = true;
 
+    GOOGLE_MAPS_API_KEY = "";
+
     console.log("Google Maps -useEffect");
     const script = document.createElement("script");
-    script.src =
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyBoPryoNFGz_SvBneuhkfgIcMI381f88fQ&callback=initMap";
+    script.src = "https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap";
     script.async = true;
     document.body.appendChild(script);
 
