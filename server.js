@@ -1,13 +1,12 @@
 // server.js
 
 const fs = require("fs");
-
 const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const PORT = 5000; // Port for the backend server
-const SERVER_HOST = "localhost"; //   the backend server address/url
+const PORT = 8080; // Port for the backend server
+const SERVER_HOST = "127.0.0.1"; //   the backend server address/url
 
 
 // Middleware
@@ -25,10 +24,11 @@ require('dotenv').config();
 
 var mongo = require('mongodb');
 
-// Amadeus API credentials
+// Read env variables for credentials
+const APP_SERVER_HOME = process.env.APP_SERVER_HOME;
 const API_KEY = process.env.AMADEUS_API_KEY;
 const API_SECRET = process.env.AMADEUS_API_SECRET;
-const TOKEN_URL = "https://api.amadeus.com/v1/security/oauth2/token";
+const TOKEN_URL = process.env.TOKEN_URL;
 
 // Token storage
 let accessToken = null;
@@ -79,6 +79,21 @@ const getAccessToken = async (forceRefresh = false) => {
       throw new Error("Failed to obtain access token.");
     }
 };  
+
+app.get('/', async (req, res) => {
+ 
+    res.json("App server is running.");
+  
+ });
+
+app.get('/api/google', async (req, res) => {
+  try{
+    const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+    res.json({GOOGLE_MAPS_API_KEY});
+  } catch(error) {
+    console.log("ERROR WHEN TRYING TO FETCH GOOGLE MAPS API: ", error);
+  }
+});
 
 // Endpoint to get Amadeus token
 app.get('/api/token', async (req, res) => {
@@ -146,7 +161,7 @@ app.get('/api/flight-data', async(req, res) => {
 
     try {
       // Get token from backend
-      const tokenResponse = await axios.get('http://localhost:5000/api/token');
+      const tokenResponse = await axios.get(`http://${APP_SERVER_HOME}/api/token`);
       //console.log("tokenResponse: ", tokenResponse);
       //const tokenData = await tokenResponse.data.token;
       const token = await tokenResponse.data.token;
@@ -248,6 +263,247 @@ app.get('/api/airport-coordinates', async (req, res) => {
   } catch (error) {
       console.error("Error fetching airport data:", error);
       return res.status(500).json({ error: "Failed to fetch airport data" });
+  }
+});
+
+/*
+// Code  for mongoose config in backend
+// Filename - backend/index.js
+
+const MONGO_DB_USER = process.env.MONGO_DB_USER
+const MONGO_DB_PASSWORD = process.env.MONGO_DB_PASSWORD
+const MONGO_DB_SERVER_URL = process.env.MONGO_DB_SERVER_URL
+//const mongo_db_uri = `mongodb+srv://{$MONGO_DB_USER}:{$MONGO_DB_PASSWORD}@{$MONGO_DB_SERVER_URL}`
+
+//const uri = `mongodb+srv://${MONGO_DB_USER}:${MONGO_DB_PASSWORD}@${MONGO_DB_SERVER_URL}`
+//MONGODB_URI=mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.tdm0q.mongodb.net/sample_mflix?retryWrites=true&w=majority
+const uri = `mongodb+srv://admin:tfbIfB4Lha5OItj7@fyp-cluster.4q0pr.mongodb.net/?retryWrites=true&w=majority&appName=fyp-cluster`
+
+import clientPromise from "../../lib/mongodb";
+import { NextApiRequest, NextApiResponse } from 'next';
+
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+        const client = await clientPromise;
+        const db = client.db("sample_mflix");
+        const movies = await db
+            .collection("movies")
+            .find({})
+            .sort({ metacritic: -1 })
+            .limit(10)
+            .toArray();
+        res.json(movies);
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+// To connect with your mongoDB database
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/', {
+    dbName: 'yourDB-name',
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}, err => err ? console.log(err) : 
+    console.log('Connected to yourDB-name database'));
+
+// Schema for users of app
+const UserSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    date: {
+        type: Date,
+        default: Date.now,
+    },
+});
+const User = mongoose.model('users', UserSchema);
+User.createIndexes();
+
+// For backend and express
+//const express = require('express');
+//const app = express();
+const cors = require("cors");
+console.log("App listen at port 5000");
+app.use(express.json());
+app.use(cors());
+app.get("/", (req, resp) => {
+
+    resp.send("App server is Working");
+    // You can check backend is working or not by 
+    // entering http://loacalhost:5000
+    
+    // If you see App is working means
+    // backend working properly
+});
+
+app.post("/register", async (req, resp) => {
+    try {
+        const user = new User(req.body);
+        let result = await user.save();
+        result = result.toObject();
+        if (result) {
+            delete result.password;
+            resp.send(req.body);
+            console.log(result);
+        } else {
+            console.log("User already register");
+        }
+
+    } catch (e) {
+        resp.send("Something Went Wrong");
+    }
+});
+*/
+
+const mongoose = require('mongoose');
+
+const UserSchema = new mongoose.Schema({
+  name: {
+      type: String,
+      required: true,
+  },
+  email: {
+      type: String,
+      required: true,
+      unique: true,
+  },
+});
+const User = mongoose.model('users', UserSchema);
+
+const {MongoClient} = require("mongodb");
+const MONGO_DB_USER = process.env.MONGO_DB_USER
+const MONGO_DB_PASSWORD = process.env.MONGO_DB_PASSWORD
+const MONGO_DB_SERVER_URL = process.env.MONGO_DB_SERVER_URL
+const uri = `mongodb+srv://${MONGO_DB_USER}:${MONGO_DB_PASSWORD}@${MONGO_DB_SERVER_URL}`
+
+console.log("URI = ", uri)
+
+const client = new MongoClient(uri);
+
+async function listDatabases(client){
+    const databasesList = await client.db().admin().listDatabases();
+ 
+    console.log("Databases:");
+    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+};
+
+async function main(){
+  try{ 
+
+      await client.connect();
+
+      await listDatabases(client);
+
+      /*
+      const newUser = {
+          name: "John Doe",
+          email: "johndoe@example.com",
+          password: "pass123",
+          phone: "+123456789",
+          address: {
+              street: "123 Main St",
+              city: "New York",
+              zip: "10001"
+          },
+          createdAt: new Date(),
+          orders: []
+      };
+      */
+      const db = client.db("user-flight-journies"); // Select the database
+      const usersCollection = db.collection("users"); // Select the collection
+
+      //const result = await usersCollection.insertOne(newUser);
+      
+
+      //console.log("Customer inserted with ID: ", result.insertedId);
+
+      console.log("Before SELECT ALL");
+      res = await usersCollection.find();
+      console.log("After SELECT ALL:", res);
+
+      //await createCollection();
+
+  } catch (error) {
+      console.log("Error in MongoDB script: ", error);
+  } finally{
+      await client.close();
+  }
+}
+
+//main();
+
+//app.post()
+
+app.post("/register", async (req, resp) => {
+  console.log("IN REGISTER")
+  try {
+      console.log("IN TRY BLOCK");
+      
+      await client.connect();
+
+      const db = client.db("user-flight-journies"); // Select the database
+      const usersCollection = db.collection("users"); // Select the collection
+      //const user = new User(req.body);
+      const result = req.body;
+      //let result = await user.save();
+      //result = result.toObject();
+      //result = user.toObject();
+      if (result) {
+          const response = await usersCollection.insertOne(result);
+          delete result.password;
+          resp.send(req.body);
+          console.log(result, response);
+      } else {
+        console.log("User already register");
+      }
+
+  } catch (e) {
+      resp.send("Something Went Wrong");
+      console.log("ERROR:", e)
+  }
+});
+
+app.get("/login", async (req, resp) => {
+  console.log("IN LOGIN")
+  try {
+      console.log("IN TRY BLOCK");
+      
+      await client.connect();
+
+      const db = client.db("user-flight-journies"); // Select the database
+      const usersCollection = db.collection("users"); // Select the collection
+      //const user = new User(req.body);
+      const result = req.query;
+      const { email, password } = req.query;
+      //let result = await user.save();
+      //result = result.toObject();
+      //result = user.toObject();
+      if (!email || !password) {
+        return resp.status(400).json({ error: "Email and password are required" });
+      }
+
+      const response = await usersCollection.findOne({"email": result.email, "password": result.password})
+
+      if (response) {
+          //const response = await usersCollection.insertOne(result);
+          //const response = await usersCollection.findOne({"email": result.email, "password": result.password})
+          delete result.password;
+          resp.send(true);
+          console.log(result, response);
+      } else {
+        resp.send(false);
+      }
+
+  } catch (e) {
+      resp.send("Something Went Wrong");
+      console.log("ERROR:", e)
   }
 });
 

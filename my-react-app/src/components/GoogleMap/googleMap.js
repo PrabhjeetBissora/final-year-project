@@ -3,7 +3,21 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import haversine from 'haversine-distance'
 
+//require('dotenv').config();
+
 console.log("----------------------IN GOOGLEMAP.JS --------------------------------");
+
+var config  = require('./myConfigVars.json');
+var x = config.GOOGLE_MAPS_API_KEY;
+console.log("TEST URL GOOGLE_MAPS_API_KEY " + x)
+var BACKEND_PORT = config.BACKEND_PORT;
+console.log("TEST URL BACKEND_PORT " + BACKEND_PORT)
+
+/*
+const {INIT_CWD} = process.env; // process.env.INIT_CWD 
+const paths = require(${INIT_CWD}/config/paths);
+console.log("PWD:" ,process.env.PWD)
+*/
 
 // import fs from 'fs';
 //const fs = require("fs");
@@ -46,7 +60,9 @@ console.log("----------------------IN SEARCHJ FOIRM ----------------------------
 
 const GoogleMap = ({ onLogout }) => {
 
-console.log("----------------------IN GOOGL,E MAP COMPONENT --------------------------------");
+console.log("----------------------IN GOOGLE MAP COMPONENT --------------------------------");
+
+  const [apiKey, setApiKey] = useState({});
 
   const [map, setMap] = useState(null);
   const [directionsRenderer1, setDirectionsRenderer1] = useState(null);
@@ -69,11 +85,37 @@ console.log("----------------------IN GOOGL,E MAP COMPONENT --------------------
     //if (scriptLoaded.current) return; // Skip if script is already loaded
     //scriptLoaded.current = true;
 
-    GOOGLE_MAPS_API_KEY = "";
+    //let API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+    //console.log("API KEY =", API_KEY);
+
+    const fetchData = async () => {
+      // You can await here
+      try {
+        const response = await axios.get(`http://localhost:${BACKEND_PORT}/api/google`);
+        console.log("response:",response)
+        setApiKey(response); // Assuming the server returns { apiKey: "YOUR_KEY" }
+        return(response);
+      } catch (error) {
+        console.error("Error fetching API key:", error);
+      }
+    };
 
     console.log("Google Maps -useEffect");
     const script = document.createElement("script");
-    script.src = "https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap";
+
+    //const request = await axios.get('http://localhost:5000/api/google');
+
+    /*
+    let res = fetchData();
+    console.log("Output of fetchdata is: ", res);
+    let REACT_APP_GOOGLE_MAPS_API_KEY = apiKey;
+    */
+
+    // console.log("Google Key:", `https://maps.googleapis.com/maps/api/js?key=${REACT_APP_GOOGLE_MAPS_API_KEY}&callback=initMap`);
+    //script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&callback=initMap`;
+    // script.src = `https://maps.googleapis.com/maps/api/js?key=${REACT_APP_GOOGLE_MAPS_API_KEY}&callback=initMap`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${x}&callback=initMap`;
+
     script.async = true;
     document.body.appendChild(script);
 
@@ -369,7 +411,7 @@ console.log("----------------------IN GOOGL,E MAP COMPONENT --------------------
     console.log("----------------------IN GETTING NEAREST AIRPORT --------------------------------");
 
     try {
-      const response = await axios.get('http://localhost:5000/api/nearest-airports', {
+      const response = await axios.get(`http://localhost:${BACKEND_PORT}/api/nearest-airports`, {
         params: {
           latitude,
           longitude,
@@ -455,7 +497,7 @@ console.log("----------------------IN GOOGL,E MAP COMPONENT --------------------
       // console.log("originLocationCode:", originLocationCode);
       // console.log("destinationLocationCode:", destinationLocationCode);
       // console.log("before get call ");
-      const response = await axios.get('http://localhost:5000/api/flight-data', {
+      const response = await axios.get(`http://localhost:${BACKEND_PORT}/api/flight-data`, {
         params: { g_departureDate,
           originLocationCode,
           destinationLocationCode },

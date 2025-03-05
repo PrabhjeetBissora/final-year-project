@@ -22,6 +22,7 @@ node_modules/*
 # secrets
 src/.env
 .env
+my-react-app/src/components/GoogleMap/myConfigVars.json
 
 # lock files
 package-lock.json
@@ -31,3 +32,6 @@ package-lock
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# db
+my-react-app/src/db.js
