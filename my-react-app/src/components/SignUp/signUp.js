@@ -68,7 +68,7 @@ const SignUp = () => {
       // insert into db code
 
       try{
-        const signUpReq = axios.post('http://localhost:5000/register',{
+        const signUpReq = axios.post('http://localhost:8080/register',{
           name: name,
           email: email,
           password: password,

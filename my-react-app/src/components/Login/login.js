@@ -38,7 +38,7 @@ const Login = () => {
       console.log("Logging in user with email: ", email, " and password: ", password);
 
       try{
-        const request = await axios.get('http://localhost:5000/login',{
+        const request = await axios.get('http://localhost:8080/login',{
           params: {
             email: email,
             password: password
