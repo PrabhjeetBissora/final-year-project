@@ -2,10 +2,12 @@
 // source: https://www.mongodb.com/resources/languages/mongodb-with-nodejs#:~:text=Import%20the%20MongoClient%20in%20a,your%20connection%20URI%20to%20it.
 
 const {MongoClient} = require("mongodb");
-const MONGO_DB_USER = ""
-const MONGO_DB_PASSWORD = ""
-const MONGO_DB_SERVER_URL = ""
-const mongo_db_uri = "mongodb+srv://{$MONGO_DB_USER}:{$MONGO_DB_PASSWORD}@{$MONGO_DB_SERVER_URL}"
+const MONGO_DB_USER = process.env.MONGO_DB_USER
+const MONGO_DB_PASSWORD = process.env.MONGO_DB_PASSWORD
+const MONGO_DB_SERVER_URL = process.env.MONGO_DB_SERVER_URL
+const uri = `mongodb+srv://${MONGO_DB_USER}:${MONGO_DB_PASSWORD}@${MONGO_DB_SERVER_URL}`
+
+console.log("URI = ", uri)
 
 const client = new MongoClient(uri);
 

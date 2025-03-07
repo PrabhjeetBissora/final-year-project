@@ -80,12 +80,14 @@ const getAccessToken = async (forceRefresh = false) => {
     }
 };  
 
+// Default output
 app.get('/', async (req, res) => {
  
     res.json("App server is running.");
   
  });
 
+// Get google maps API
 app.get('/api/google', async (req, res) => {
   try{
     const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -107,6 +109,7 @@ app.get('/api/token', async (req, res) => {
     }
 });
 
+// Endpoint to get nearest airports
 app.get('/api/nearest-airports', async (req, res) => {
     const { latitude, longitude } = req.query;
     console.log(`Received request for coordinates: ${latitude}, ${longitude}`);
@@ -153,6 +156,7 @@ app.get('/api/nearest-airports', async (req, res) => {
     }
 });
 
+// Endpoint to get flights between two airports on selected date
 app.get('/api/flight-data', async(req, res) => {
     const { originLocationCode, destinationLocationCode, g_departureDate, adults } = req.query;
     console.log(`Received request for airports: ${originLocationCode}, ${destinationLocationCode}, on date: ${g_departureDate}`);
@@ -196,6 +200,7 @@ app.get('/api/flight-data', async(req, res) => {
     }
 })
 
+// Endpoint to get 
 app.get('/api/locations', async (req, res) => {
     const { keyword } = req.query;
     try {
@@ -233,6 +238,7 @@ const getAirportsAndCities = async (keyword) => {
     }
 };
 
+// Endpoint to get coordinates from IATA code of airport
 app.get('/api/airport-coordinates', async (req, res) => {
   const { iataCode } = req.query;
 

@@ -35,3 +35,6 @@ yarn-error.log*
 
 # db
 my-react-app/src/db.js
+
+# flight test data
+flight-data.json
