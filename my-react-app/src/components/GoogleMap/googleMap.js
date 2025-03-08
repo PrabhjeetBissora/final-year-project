@@ -104,6 +104,7 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
   const [directionsRenderer, setDirectionsRenderer] = useState(null);
   const [airportDetails, setAirportDetails] = useState({});
   const [flights, setFlights] = useState([null]);
+  const [selectedFlight, setSelectedFlight] = useState({});
 
   // only load 1 times
   // const scriptLoaded = useRef(false);
@@ -172,19 +173,23 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
 
   // if all three variables set, call totalDuration()
   useEffect(() => {
-    if (groundDetailsStart.duration && groundDetailsEnd.duration && flightDetails.duration){
-      totalDuration(
-        { distance: groundDetailsStart.distance, duration: groundDetailsStart.duration },
-        { distance: groundDetailsEnd.distance, duration: groundDetailsEnd.duration },
-        { distance: flightDetails.distance, duration: flightDetails.duration }
+    //if (groundDetailsStart.duration && groundDetailsEnd.duration && flightDetails.duration && selectedFlight){
+    console.log("IN USE EFFECT")
+      if (groundDetailsStart.duration && groundDetailsEnd.duration && flightDetails.duration){
+        totalDuration(
+          { distance: groundDetailsStart.distance, duration: groundDetailsStart.duration },
+          { distance: groundDetailsEnd.distance, duration: groundDetailsEnd.duration },
+          //{ distance: selectedFlight.distance, duration: selectedFlight.duration }
+          { distance: flightDetails.distance, duration: flightDetails.duration }
       );
     }
   }, [groundDetailsStart, groundDetailsEnd, flightDetails])
+  //}, [groundDetailsStart, groundDetailsEnd, flightDetails])
 
   // print when flights get updated
   useEffect(() => {
     console.log("Updated FLIGHTDATADETAILS= ", flights);
-  }, [flights]);
+  }, [flights,]);
 
   /*
   // output when startduration updates
@@ -214,6 +219,30 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
   }, [directionsResult, directionsRenderer]);
   */
 
+  const handleSelectFlight = (flight) => {
+    console.log("Selected flight:", flight);
+    /*
+    setSelectedFlight({
+      distance: "N/A", // Flight API might not provide exact distance
+      //distance: flightDistance,
+      duration: flight.itineraries[0].duration.replace("PT", "")
+    })
+      */
+
+    setCarrierCode({
+      //airlineCode: flight.itineraries[0].segments[0].carrierCode,
+      airlineCode: [... new Set(flight.itineraries[0].segments.map(segment => segment.carrierCode))].join(", "),
+    });
+
+    setFlightDetails({
+      distance: "N/A", // Flight API might not provide exact distance
+      //distance: flightDistance,
+      duration: flight.itineraries[0].duration.replace("PT", ""),
+      
+      //price: `${cheapestFlight.price.currency} ${cheapestFlight.price.grandTotal}`,
+    });
+  }
+
   const displayJourneyDetails = () => {
     return (
       <div className="googleMap">
@@ -232,7 +261,7 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
               <td>{groundDetailsStart.duration}</td>
             </tr>
             <tr>
-              <td>Flight operated by Airline: {carrierCode.airlineCode}</td>
+              <td>Flights operated by Airlines: {carrierCode.airlineCode}</td>
               <td>{flightDetails.distance}</td>
               <td>{flightDetails.duration}</td>
             </tr>
@@ -263,6 +292,7 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
               <th>Operated by</th>
               <th>Fare</th>
               <th>Currency</th>
+              <th>Select?</th>
             </tr>
           </thead>
           <tbody>
@@ -273,6 +303,7 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
               <td>{flights[0]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
               <td>{flights[0]?.price?.grandTotal || "N/A"}</td>
               <td>{flights[0]?.price?.currency || "N/A"}</td>
+              <td><button onClick={() => handleSelectFlight(flights[0])}>Select</button></td>
             </tr>
             <tr>
               <td>{flights[1]?.itineraries?.[0]?.segments?.[0]?.arrival?.at || "N/A"}</td>
@@ -281,6 +312,7 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
               <td>{flights[1]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
               <td>{flights[1]?.price?.grandTotal || "N/A"}</td>
               <td>{flights[1]?.price?.currency || "N/A"}</td>
+              <td><button onClick={() => handleSelectFlight(flights[1])}>Select</button></td>
             </tr>
             <tr>
               <td>{flights[2]?.itineraries?.[0]?.segments?.[0]?.arrival?.at || "N/A"}</td>
@@ -289,6 +321,7 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
               <td>{flights[2]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
               <td>{flights[2]?.price?.grandTotal || "N/A"}</td>
               <td>{flights[2]?.price?.currency || "N/A"}</td>
+              <td><button onClick={() => handleSelectFlight(flights[2])}>Select</button></td>
             </tr>
           </tbody>
         </table>
@@ -495,6 +528,9 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
         alert('No nearby airports found.');
       }
 
+      console.log("THREE NEAREST AIRPORTS:", response.data.nearestAirports.slice(0, 3))
+
+      //return response.data.nearestAirports.slice(0, 3)
       return response.data.nearestAirports[0];
       //return response.data.nearestAirports;
     } catch (err) {
