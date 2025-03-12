@@ -124,6 +124,9 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
   const [startPoint, setStartPoint] = useState("");
   const [endPoint, setEndPoint] = useState("");
   const [deptDate, setDeptDate] = useState("");
+  const [showAirports, setShowAirports] = useState(false);
+  const [showFlights, setShowFlights] = useState(false);
+  const [showJourney, setShowJourney] = useState(false);
 
   // only load 1 times
   // const scriptLoaded = useRef(false);
@@ -194,13 +197,14 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
   useEffect(() => {
     //if (groundDetailsStart.duration && groundDetailsEnd.duration && flightDetails.duration && selectedFlight){
     console.log("IN USE EFFECT")
-      if (groundDetailsStart.duration && groundDetailsEnd.duration && flightDetails.duration){
-        totalDuration(
-          { distance: groundDetailsStart.distance, duration: groundDetailsStart.duration },
-          { distance: groundDetailsEnd.distance, duration: groundDetailsEnd.duration },
-          //{ distance: selectedFlight.distance, duration: selectedFlight.duration }
-          { distance: flightDetails.distance, duration: flightDetails.duration }
-        );
+    if (groundDetailsStart.duration && groundDetailsEnd.duration && flightDetails.duration){
+      totalDuration(
+        { distance: groundDetailsStart.distance, duration: groundDetailsStart.duration },
+        { distance: groundDetailsEnd.distance, duration: groundDetailsEnd.duration },
+        //{ distance: selectedFlight.distance, duration: selectedFlight.duration }
+        { distance: flightDetails.distance, duration: flightDetails.duration }
+      );
+      //displayItineraryDetails();
     }
   }, [groundDetailsStart, groundDetailsEnd, flightDetails])
   //}, [groundDetailsStart, groundDetailsEnd, flightDetails])
@@ -267,13 +271,125 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
       
       //price: `${cheapestFlight.price.currency} ${cheapestFlight.price.grandTotal}`,
     });
-  }
 
-  const displayJourneyDetails = () => {
+    //setShowJourney(true);
+    //displayItineraryDetails();
+
+    console.log("before display journey");
+
+    setShowJourney(true);
+    /*
+    return(
+      <div>
+        {displayItineraryDetails()}
+      </div>
+    );
+    */
+  };
+
+  const displayItineraryDetails = () => {
+    console.log("in display journey")
+    return (
+      <div>
+        <h2>Journey Details</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Journey</th>
+              <th>Distance</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>(From: to {airportDetails.startAirport} Airport)</td>
+              <td>{groundDetailsStart.distance}</td>
+              <td>{groundDetailsStart.duration}</td>
+            </tr>
+            <tr>
+              <td>Flights operated by Airlines: {carrierCode.airlineCode}</td>
+              <td>{flightDetails.distance}</td>
+              <td>{flightDetails.duration}</td>
+            </tr>
+            <tr>
+              <td>Ground ({airportDetails.endAirport} Airport to End)</td>
+              <td>{groundDetailsEnd.distance}</td>
+              <td>{groundDetailsEnd.duration}</td>
+            </tr>
+            <tr>
+              <td>Total Duration</td>
+              <td colSpan="2">{totalDistance.distance}</td>
+            </tr>
+            <h2>Weather at destination</h2>
+            <tr>
+              <td>Temperature of endpoint</td>
+              <td>Min: {destTemp.min}°C</td>
+              <td>Max: {destTemp.max}°C</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  };
+
+  const displayAvailableFlights = () => {
+
+    console.log("in displayAvailableFlights");
+    return(
+      <div>
+
+        <h2>Available Flights</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Departure Time</th>
+              <th>Arrival Time</th>
+              <th>Duration</th>
+              <th>Operated by</th>
+              <th>Fare</th>
+              <th>Currency</th>
+              <th>Select?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{flights[0]?.FormattedDepartureTime || "N/A"}</td>
+              <td>{flights[0]?.FormattedArrivalTime || "N/A"}</td>
+              <td>{flights[0]?.formattedFlightDuration || "N/A"}</td>
+              <td>{flights[0]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
+              <td>{flights[0]?.price?.grandTotal || "N/A"}</td>
+              <td>{flights[0]?.price?.currency || "N/A"}</td>
+              <td><button onClick={() => handleSelectFlight(flights[0])}>Select</button></td>
+            </tr>
+            <tr>
+              <td>{flights[1]?.FormattedDepartureTime || "N/A"}</td>
+              <td>{flights[1]?.FormattedArrivalTime || "N/A"}</td>
+              <td>{flights[1]?.formattedFlightDuration || "N/A"}</td>
+              <td>{flights[1]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
+              <td>{flights[1]?.price?.grandTotal || "N/A"}</td>
+              <td>{flights[1]?.price?.currency || "N/A"}</td>
+              <td><button onClick={() => handleSelectFlight(flights[1])}>Select</button></td>
+            </tr>
+            <tr>
+              <td>{flights[2]?.FormattedDepartureTime || "N/A"}</td>
+              <td>{flights[2]?.FormattedArrivalTime || "N/A"}</td>
+              <td>{flights[2]?.formattedFlightDuration || "N/A"}</td>
+              <td>{flights[2]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
+              <td>{flights[2]?.price?.grandTotal || "N/A"}</td>
+              <td>{flights[2]?.price?.currency || "N/A"}</td>
+              <td><button onClick={() => handleSelectFlight(flights[2])}>Select</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    );
+  };
+
+  const displayAvailableAirports = () => {
     return (
       <div className="googleMap">
-
-      <h2>Available Airports</h2>
+        <h2>Available Airports</h2>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -363,88 +479,6 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
           </tbody>
         </table>
         <button onClick={() => handleSearch(startPoint, endPoint, deptDate)}>Select</button>
-
-        <h2>Available Flights</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Departure Time</th>
-              <th>Arrival Time</th>
-              <th>Duration</th>
-              <th>Operated by</th>
-              <th>Fare</th>
-              <th>Currency</th>
-              <th>Select?</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{flights[0]?.FormattedDepartureTime || "N/A"}</td>
-              <td>{flights[0]?.FormattedArrivalTime || "N/A"}</td>
-              <td>{flights[0]?.formattedFlightDuration || "N/A"}</td>
-              <td>{flights[0]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
-              <td>{flights[0]?.price?.grandTotal || "N/A"}</td>
-              <td>{flights[0]?.price?.currency || "N/A"}</td>
-              <td><button onClick={() => handleSelectFlight(flights[0])}>Select</button></td>
-            </tr>
-            <tr>
-              <td>{flights[1]?.FormattedDepartureTime || "N/A"}</td>
-              <td>{flights[1]?.FormattedArrivalTime || "N/A"}</td>
-              <td>{flights[1]?.formattedFlightDuration || "N/A"}</td>
-              <td>{flights[1]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
-              <td>{flights[1]?.price?.grandTotal || "N/A"}</td>
-              <td>{flights[1]?.price?.currency || "N/A"}</td>
-              <td><button onClick={() => handleSelectFlight(flights[1])}>Select</button></td>
-            </tr>
-            <tr>
-              <td>{flights[2]?.FormattedDepartureTime || "N/A"}</td>
-              <td>{flights[2]?.FormattedArrivalTime || "N/A"}</td>
-              <td>{flights[2]?.formattedFlightDuration || "N/A"}</td>
-              <td>{flights[2]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
-              <td>{flights[2]?.price?.grandTotal || "N/A"}</td>
-              <td>{flights[2]?.price?.currency || "N/A"}</td>
-              <td><button onClick={() => handleSelectFlight(flights[2])}>Select</button></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h2>Journey Details</h2>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Journey</th>
-              <th>Distance</th>
-              <th>Duration</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>(From: to {airportDetails.startAirport} Airport)</td>
-              <td>{groundDetailsStart.distance}</td>
-              <td>{groundDetailsStart.duration}</td>
-            </tr>
-            <tr>
-              <td>Flights operated by Airlines: {carrierCode.airlineCode}</td>
-              <td>{flightDetails.distance}</td>
-              <td>{flightDetails.duration}</td>
-            </tr>
-            <tr>
-              <td>Ground ({airportDetails.endAirport} Airport to End)</td>
-              <td>{groundDetailsEnd.distance}</td>
-              <td>{groundDetailsEnd.duration}</td>
-            </tr>
-            <tr>
-              <td>Total Duration</td>
-              <td colSpan="2">{totalDistance.distance}</td>
-            </tr>
-            <h2>Weather at destination</h2>
-            <tr>
-              <td>Temperature of endpoint</td>
-              <td>Min: {destTemp.min}°C</td>
-              <td>Max: {destTemp.max}°C</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     );
   };
@@ -1051,6 +1085,7 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
     let endAirport = [];
 
     if (selectedStartAirport.iataCode){
+      setShowFlights(true);
       console.log("IN selectedStartAirport: ", selectedStartAirport);
       //addStartAirport(selectedStartAirport);
       startAirport[0] = selectedStartAirport;
@@ -1297,8 +1332,13 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
       }
     }
 
+    //displayItineraryDetails();
+
     if (!flightFound) {
       console.log("No valid flights found after checking all options.");
+    }
+    else{
+      setShowAirports(true);
     }
     // await totalDuration();
     //destTemperature(longitude, latitude, departureDate);
@@ -1310,7 +1350,9 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
       <SearchForm onSearch={handleSearch} />
       <div id="map" style={{ height: "600px", width: "100%" }}></div>
       <div>
-        {displayJourneyDetails()}
+        {showAirports? displayAvailableAirports():""}
+        {showFlights? displayAvailableFlights():""}
+        {showJourney? displayItineraryDetails():""}
       </div>
     </div>
   );
