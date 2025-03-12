@@ -131,7 +131,7 @@ app.get('/api/nearest-airports', async (req, res) => {
 
       const response = await axios.get('https://api.amadeus.com/v1/reference-data/locations/airports', {
         headers: { Authorization: `Bearer ${token}` },
-        params: { latitude, longitude, radius: 300, }
+        params: { latitude, longitude, radius: 150, }
       });
 
       //console.log('Amadeus API response:', response.data);
@@ -158,10 +158,10 @@ app.get('/api/nearest-airports', async (req, res) => {
 
 // Endpoint to get flights between two airports on selected date
 app.get('/api/flight-data', async(req, res) => {
-    const { originLocationCode, destinationLocationCode, g_departureDate, adults } = req.query;
-    console.log(`Received request for airports: ${originLocationCode}, ${destinationLocationCode}, on date: ${g_departureDate}`);
+    const { originLocationCode, destinationLocationCode, deptDate, adults } = req.query;
+    console.log(`Received request for airports: ${originLocationCode}, ${destinationLocationCode}, on date: ${deptDate}`);
 
-    const url = `https://api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${g_departureDate}&adults=1`;
+    const url = `https://api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${deptDate}&adults=1`;
 
     try {
       // Get token from backend
@@ -212,6 +212,7 @@ app.get('/api/locations', async (req, res) => {
     }
 });
 
+// endpoint to get airports and cities
 const getAirportsAndCities = async (keyword) => {
     try {
         const token = await getAccessToken();

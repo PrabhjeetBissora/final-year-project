@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import haversine from 'haversine-distance'
 import { useNavigate } from "react-router-dom";
+import styles from "./googleMap.css"
 
 //require('dotenv').config();
 
@@ -30,16 +31,17 @@ console.log("----------------------IN SEARCH FORM ------------------------------
   const [startPoint, setSP] = useState("");
   const [endPoint, setEP] = useState("");
   const [transportMode, setTransportMode] = useState("");
+  const [deptDate, setDeptDate] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(startPoint, endPoint);
+    onSearch(startPoint, endPoint, deptDate);
     //onSearch("Lucan, Ireland", "Eiffel Tower, Paris");
   };
 
   return (
-    <div className="signUp">
+    <div className="googleMap">
       <button onClick={() => navigate("/signup")}>Go to Signup</button>
       <form onSubmit={handleSubmit} style={{ marginBottom: "10px" }}>
         <label>
@@ -56,6 +58,15 @@ console.log("----------------------IN SEARCH FORM ------------------------------
             type="text"
             value={endPoint}
             onChange={(e) => setEP(e.target.value)}
+          />
+        </label>
+        <label>
+          Date of departure:
+          <input
+            type="date"
+            value={deptDate}
+            min={new Date().toISOString().split("T")[0]} // don't allow inputs before today's date
+            onChange={(e) => setDeptDate(e.target.value)}
           />
         </label>
         <p>Select your transport mode:</p>
@@ -105,6 +116,14 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
   const [airportDetails, setAirportDetails] = useState({});
   const [flights, setFlights] = useState([null]);
   const [selectedFlight, setSelectedFlight] = useState({});
+  const [startAirports, setStartAirports] = useState([null]);
+  const [endAirports, setEndAirports] = useState([null]);
+  const [g_departureDate, setGDepartureDate] = useState("");
+  const [selectedStartAirport, setSelectedStartAirport] = useState({});
+  const [selectedEndAirport, setSelectedEndAirport] = useState({});
+  const [startPoint, setStartPoint] = useState("");
+  const [endPoint, setEndPoint] = useState("");
+  const [deptDate, setDeptDate] = useState("");
 
   // only load 1 times
   // const scriptLoaded = useRef(false);
@@ -181,7 +200,7 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
           { distance: groundDetailsEnd.distance, duration: groundDetailsEnd.duration },
           //{ distance: selectedFlight.distance, duration: selectedFlight.duration }
           { distance: flightDetails.distance, duration: flightDetails.duration }
-      );
+        );
     }
   }, [groundDetailsStart, groundDetailsEnd, flightDetails])
   //}, [groundDetailsStart, groundDetailsEnd, flightDetails])
@@ -190,6 +209,13 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
   useEffect(() => {
     console.log("Updated FLIGHTDATADETAILS= ", flights);
   }, [flights,]);
+
+  // when user selects start and end airports
+  // useEffect(() => {
+  //   if (selectedStartAirport.iataCode && selectedEndAirport.iataCode){
+  //     handleSearch(startPoint, endPoint, deptDate);
+  //   }
+  // }, )
 
   /*
   // output when startduration updates
@@ -246,7 +272,144 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
   const displayJourneyDetails = () => {
     return (
       <div className="googleMap">
+
+      <h2>Available Airports</h2>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Nearest airport to startpoint</th>
+              <th>Nearest airport to endpoint</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>
+                {startAirports[0]?.iataCode} Airport 
+                {startAirports[0] && (
+                  <input
+                    type="radio"
+                    name="selectedStartAirport"
+                    value={startAirports[0]?.id}
+                    //checked={selectedFlight?.id === startAirports[0]?.id}
+                    onChange={() => setSelectedStartAirport(startAirports[0])}
+                  />
+                )}
+              </th>
+              <th>
+                {endAirports[0]?.iataCode} Airport
+                {endAirports[0] && (
+                  <input
+                    type="radio"
+                    name="selectedEndAirport"
+                    value={endAirports[0]?.id}
+                    //checked={selectedFlight?.id === endAirports[0]?.id}
+                    onChange={() => setSelectedEndAirport(endAirports[0])}
+                  />
+                )}
+              </th>
+            </tr>
+            <tr>
+              <th>
+                {startAirports[1]?.iataCode} Airport
+                {startAirports[1] && (
+                  <input
+                    type="radio"
+                    name="selectedStartAirport"
+                    value={startAirports[1]?.id}
+                    //checked={selectedFlight?.id === startAirports[1]?.id}
+                    onChange={() => setSelectedStartAirport(startAirports[1])}
+                  />
+                )}
+              </th>
+              <th>
+                {endAirports[1]?.iataCode} Airport
+                {endAirports[1] && (
+                  <input
+                    type="radio"
+                    name="selectedEndAirport"
+                    value={endAirports[1]?.id}
+                    //checked={selectedFlight?.id === endAirports[1]?.id}
+                    onChange={() => setSelectedEndAirport(endAirports[1])}
+                  />
+                )}  
+              </th>
+            </tr>
+            <tr>
+              <th>
+                {startAirports[2]?.iataCode} Airport
+                {startAirports[2] && (
+                  <input
+                    type="radio"
+                    name="selectedStartAirport"
+                    value={startAirports[2]?.id}
+                    //checked={selectedFlight?.id === startAirports[2]?.id}
+                    onChange={() => setSelectedStartAirport(startAirports[2])}
+                  />
+                )}
+              </th>
+              <th>
+                {endAirports[2]?.iataCode} Airport
+                {endAirports[2] && (
+                  <input
+                    type="radio"
+                    name="selectedEndAirport"
+                    value={endAirports[2]?.id}
+                    //checked={selectedFlight?.id === endAirports[0]?.id}
+                    onChange={() => setSelectedEndAirport(endAirports[2])}
+                  />
+                )}  
+              </th>
+            </tr>
+          </tbody>
+        </table>
+        <button onClick={() => handleSearch(startPoint, endPoint, deptDate)}>Select</button>
+
+        <h2>Available Flights</h2>
         <table>
+          <thead>
+            <tr>
+              <th>Departure Time</th>
+              <th>Arrival Time</th>
+              <th>Duration</th>
+              <th>Operated by</th>
+              <th>Fare</th>
+              <th>Currency</th>
+              <th>Select?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{flights[0]?.FormattedDepartureTime || "N/A"}</td>
+              <td>{flights[0]?.FormattedArrivalTime || "N/A"}</td>
+              <td>{flights[0]?.formattedFlightDuration || "N/A"}</td>
+              <td>{flights[0]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
+              <td>{flights[0]?.price?.grandTotal || "N/A"}</td>
+              <td>{flights[0]?.price?.currency || "N/A"}</td>
+              <td><button onClick={() => handleSelectFlight(flights[0])}>Select</button></td>
+            </tr>
+            <tr>
+              <td>{flights[1]?.FormattedDepartureTime || "N/A"}</td>
+              <td>{flights[1]?.FormattedArrivalTime || "N/A"}</td>
+              <td>{flights[1]?.formattedFlightDuration || "N/A"}</td>
+              <td>{flights[1]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
+              <td>{flights[1]?.price?.grandTotal || "N/A"}</td>
+              <td>{flights[1]?.price?.currency || "N/A"}</td>
+              <td><button onClick={() => handleSelectFlight(flights[1])}>Select</button></td>
+            </tr>
+            <tr>
+              <td>{flights[2]?.FormattedDepartureTime || "N/A"}</td>
+              <td>{flights[2]?.FormattedArrivalTime || "N/A"}</td>
+              <td>{flights[2]?.formattedFlightDuration || "N/A"}</td>
+              <td>{flights[2]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
+              <td>{flights[2]?.price?.grandTotal || "N/A"}</td>
+              <td>{flights[2]?.price?.currency || "N/A"}</td>
+              <td><button onClick={() => handleSelectFlight(flights[2])}>Select</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Journey Details</h2>
+        <table className={styles.table}>
           <thead>
             <tr>
               <th>Journey</th>
@@ -256,7 +419,7 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
           </thead>
           <tbody>
             <tr>
-              <td>Ground (Start to {airportDetails.startAirport} Airport)</td>
+              <td>(From: to {airportDetails.startAirport} Airport)</td>
               <td>{groundDetailsStart.distance}</td>
               <td>{groundDetailsStart.duration}</td>
             </tr>
@@ -277,51 +440,8 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
             <h2>Weather at destination</h2>
             <tr>
               <td>Temperature of endpoint</td>
-              <td>{destTemp.min}</td>
-              <td>{destTemp.max}</td>
-            </tr>
-          </tbody>
-        </table>
-        <h2>Flight details</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Departure</th>
-              <th>Arrival</th>
-              <th>Duration</th>
-              <th>Operated by</th>
-              <th>Fare</th>
-              <th>Currency</th>
-              <th>Select?</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{flights[0]?.itineraries?.[0]?.segments?.[0]?.arrival?.at || "N/A"}</td>
-              <td>{flights[0]?.itineraries?.[0]?.segments?.[0]?.departure?.at || "N/A"}</td>
-              <td>{flights[0]?.itineraries?.[0]?.duration || "N/A"}</td>
-              <td>{flights[0]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
-              <td>{flights[0]?.price?.grandTotal || "N/A"}</td>
-              <td>{flights[0]?.price?.currency || "N/A"}</td>
-              <td><button onClick={() => handleSelectFlight(flights[0])}>Select</button></td>
-            </tr>
-            <tr>
-              <td>{flights[1]?.itineraries?.[0]?.segments?.[0]?.arrival?.at || "N/A"}</td>
-              <td>{flights[1]?.itineraries?.[0]?.segments?.[0]?.departure?.at || "N/A"}</td>
-              <td>{flights[1]?.itineraries?.[0]?.duration || "N/A"}</td>
-              <td>{flights[1]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
-              <td>{flights[1]?.price?.grandTotal || "N/A"}</td>
-              <td>{flights[1]?.price?.currency || "N/A"}</td>
-              <td><button onClick={() => handleSelectFlight(flights[1])}>Select</button></td>
-            </tr>
-            <tr>
-              <td>{flights[2]?.itineraries?.[0]?.segments?.[0]?.arrival?.at || "N/A"}</td>
-              <td>{flights[2]?.itineraries?.[0]?.segments?.[0]?.departure?.at || "N/A"}</td>
-              <td>{flights[2]?.itineraries?.[0]?.duration || "N/A"}</td>
-              <td>{flights[2]?.itineraries?.[0]?.segments?.[0]?.carrierCode || "N/A"}</td>
-              <td>{flights[2]?.price?.grandTotal || "N/A"}</td>
-              <td>{flights[2]?.price?.currency || "N/A"}</td>
-              <td><button onClick={() => handleSelectFlight(flights[2])}>Select</button></td>
+              <td>Min: {destTemp.min}°C</td>
+              <td>Max: {destTemp.max}°C</td>
             </tr>
           </tbody>
         </table>
@@ -458,10 +578,19 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
   
     try {
       const nearestAirport = await getNearestAirport(latitude, longitude);
-      console.log("nearestAirport:" , nearestAirport);
+      console.log("nearestAirport:" , nearestAirport[0]);
+      console.log("latitude:" , latitude);
+      console.log("longitude:" , longitude);
+      console.log("next nearestAirport:" , nearestAirport[1]);
+      console.log("latitude:" , latitude);
+      console.log("longitude:" , longitude);
+      console.log("next nearestAirport:" , nearestAirport[2]);
       console.log("latitude:" , latitude);
       console.log("longitude:" , longitude);
       //const destTemperature = async (latitude, longitude, departureDate) => {
+
+      let g_departureDate = "2025-03-14";
+
       console.log("g_departureDate value is: " , g_departureDate);
       let url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&start_date=${g_departureDate}&end_date=${g_departureDate}&daily=temperature_2m_max,temperature_2m_min&timezone=auto`
 
@@ -492,14 +621,15 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
         .catch(error => console.error("Error fetching data:", error));
       
       if (nearestAirport) {
-        console.log(`Nearest airport found: ${nearestAirport.iataCode}`);
-        return {
-          code: nearestAirport.iataCode,
-          coords: {
-            lat: nearestAirport.latitude,
-            lng: nearestAirport.longitude
-          }
-        };
+        console.log(`Nearest airport found: ${nearestAirport[0].iataCode}`);
+        // return {
+        //   code: nearestAirport.iataCode,
+        //   coords: {
+        //     lat: nearestAirport.latitude,
+        //     lng: nearestAirport.longitude
+        //   }
+        // };
+        return nearestAirport;
       } else {
         console.error(`No airport found for coordinates: ${latitude}, ${longitude}`);
       }
@@ -530,8 +660,8 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
 
       console.log("THREE NEAREST AIRPORTS:", response.data.nearestAirports.slice(0, 3))
 
-      //return response.data.nearestAirports.slice(0, 3)
-      return response.data.nearestAirports[0];
+      return response.data.nearestAirports.slice(0, 3)
+      //return response.data.nearestAirports[0];
       //return response.data.nearestAirports;
     } catch (err) {
       console.error('Error fetching nearest airports:', err);
@@ -599,16 +729,47 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
     })
   };
 
-  var g_departureDate = "2025-03-14";
+  // var g_departureDate = "2025-03-14";
+
+  const formatTimeAsHHMM = (unFormattedDate) => {
+    const date = new Date(unFormattedDate);
+    return `${date.getHours() < 10 ? "0" + date.getHours(): date.getHours()}:${date.getMinutes() < 10 ? "0" + date.getMinutes(): date.getMinutes()}`;
+    
+  }
 
   const addFlight = (newFlight) => {
+    
+    //const date = new Date(newFlight.itineraries[0].segments[0].departure.at);
+    //const formatted = `${date.getHours() < 10 ? "0" + date.getHours(): date.getHours()}:${date.getMinutes()}`;
+
+    //console.log("Formatted:",formatted);
+
+    //newFlight.FormattedDepartureTime = formatted
+    newFlight.FormattedDepartureTime = formatTimeAsHHMM(newFlight.itineraries[0].segments[0].departure.at);
+    newFlight.FormattedArrivalTime = formatTimeAsHHMM(newFlight.itineraries[0].segments[0].arrival.at);
+
+    let formattedDuration = newFlight.itineraries[0].duration.replace("PT", "");
+    formattedDuration = formattedDuration.toLowerCase();
+    formattedDuration = formattedDuration.replace("h", "h ");
+
+    console.log("formattedDuration:", formattedDuration);
+    newFlight.formattedFlightDuration = formattedDuration
+
+    console.log("newFlight.FormattedDepartureTime:", newFlight.FormattedDepartureTime);
     setFlights(prevFlights => [...prevFlights, newFlight]);
   };
+
+  const addStartAirport = (newAirport) => {
+    setStartAirports(prevAirports => [...prevAirports, newAirport]);
+  }
+  const addEndAirport = (newAirport) => {
+    setEndAirports(prevAirports => [...prevAirports, newAirport]);
+  }
   
-  const fetchFlightData = async (originLocationCode, destinationLocationCode) => {
+  const fetchFlightData = async (originLocationCode, destinationLocationCode, deptDate) => {
     
     console.log("----------------------IN FETCH FLIGHT DATA --------------------------------");
-
+    console.log("deptDate:", deptDate);
     
     //const departureDate = new Date().toISOString().slice(0, 10); // ref: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
     //const url = `https://api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=1`;
@@ -621,7 +782,8 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
       // console.log("destinationLocationCode:", destinationLocationCode);
       // console.log("before get call ");
       const response = await axios.get(`http://localhost:${BACKEND_PORT}/api/flight-data`, {
-        params: { g_departureDate,
+        //params: { g_departureDate,
+        params: { deptDate,
           originLocationCode,
           destinationLocationCode },
       });
@@ -640,6 +802,11 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
         addFlight(response.data[0]);
         addFlight(response.data[1]);
         addFlight(response.data[2]);
+
+        const date = new Date("2021-02-15T20:30:00+01:00");
+        const formatted = `${date.getHours()}:${date.getMinutes()}`;
+
+        console.log("NEW DATE:", formatted);
 
         //console.log("FLIGHTDATADETAILS= ", flights);
 
@@ -820,13 +987,32 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
     });
   }
 
-  const handleSearch = async (startPoint, endPoint) => {
+  const handleSearch = async (startPoint, endPoint, deptDate) => {
 
     console.log("----------------------IN HANDLE SEARCH --------------------------------");
 
     if (!startPoint || !endPoint) {
       alert("Please enter valid start and end locations.");
       return;
+    }
+
+    setStartPoint(startPoint);
+    setEndPoint(endPoint);
+    
+    if (!deptDate) {
+      alert("Please enter valid date.");
+      return;
+    }
+    else{
+      console.log("deptDate:", deptDate);
+      //await setGDepartureDate(deptDate);
+      setDeptDate(deptDate);
+      setGDepartureDate((prev) => {
+        console.log("Previous state:", prev);
+        console.log("New state:", deptDate);
+        return deptDate;
+      });      
+      console.log("GDEPTDATE:", g_departureDate);
     }
 
     let qSelect = document.querySelector('input[name="transport_mode"]:checked').value;
@@ -846,16 +1032,67 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
     //console.log(`Searching for nearest airports for start point: ${startPoint} and end point: ${endPoint}`);
   
     // Get nearest airports for both start and end points
-    const startAirport = await findNearestAirport(startPoint);
-    const endAirport = await findNearestAirport(endPoint);
+    //const startAirport = await findNearestAirport(startPoint);
+    //const endAirport = await findNearestAirport(endPoint);
+
+    
+    // Get nearest airports (if no selection made)
+    /*
+    let startAirport = selectedStartAirport
+      ? { iataCode: selectedStartAirport }  // Use selected airport
+      : await findNearestAirport(startPoint);
+
+    let endAirport = selectedEndAirport
+      ? { iataCode: selectedEndAirport }  // Use selected airport
+      : await findNearestAirport(endPoint);
+    */
+
+    let startAirport = [];
+    let endAirport = [];
+
+    if (selectedStartAirport.iataCode){
+      console.log("IN selectedStartAirport: ", selectedStartAirport);
+      //addStartAirport(selectedStartAirport);
+      startAirport[0] = selectedStartAirport;
+      //setStartAirports(startAirport);
+    }
+    else{
+      startAirport = await findNearestAirport(startPoint);
+      //setStartAirports(startAirport);
+    }
+
+    console.log("startAirport:", startAirport);
+
+    if (selectedEndAirport.iataCode){
+      console.log("IN selectedEndAirport: ", selectedEndAirport);
+      //addEndAirport(selectedEndAirport);
+      endAirport[0] = selectedEndAirport;
+      //setStartAirports(endAirport);
+    }
+    else{
+      endAirport = await findNearestAirport(endPoint);
+      //setStartAirports(startAirport);
+    }
+
+    console.log("endAirport:", endAirport);
+
+    setStartAirports(startAirport);
+    setEndAirports(endAirport);
+
+    /*
+    if (!startAirport || startAirport.length < 3 || !endAirport || endAirport.length < 3) {
+      console.error("Not enough nearest airports found.");
+      return;
+    }
+      */
   
     if (!startAirport || !endAirport) {
       alert("Could not find nearest airports.");
       return;
     }
   
-    console.log("Start Airport:", startAirport.code);
-    console.log("End Airport:", endAirport.code);
+    console.log("Start Airports:", startAirport[0]?.code, startAirport[1]?.code, startAirport[2]?.code);
+    console.log("End Airports:", endAirport[0]?.code, endAirport[1]?.code, endAirport[2]?.code);
   
     const directionsService1 = new window.google.maps.DirectionsService();
     const directionsService2 = new window.google.maps.DirectionsService();
@@ -879,39 +1116,64 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
       //setGroundDetailsStart
     );
     */
+    let i = 0;
 
-    await calculateRoute(
-      directionsService1,
-      directionsRenderer1,
-      startPoint,
-      `${startAirport.code} Airport`,
-      qSelect,
-      setGroundDetailsStart
-    );
+    console.log("startAirport[i]:", startAirport[i])
+
+    /*
+    while (i != 3) {
+      let response = await calculateRoute(
+        directionsService1,
+        directionsRenderer1,
+        startPoint,
+        `${startAirport[i].iataCode} Airport`,
+        qSelect,
+        setGroundDetailsStart
+      );
+
+      if (response){
+        break;
+      }
+      else{
+        i++;
+      }
+    }
 
     console.log("AFTER startDistance=", groundDetailsStart.distance);
     console.log("AFTER startDuration=", groundDetailsStart.duration);
 
-    /*
+    
     setGroundDetailsStart({
       distance: startDistance,
       duration: startDuration
     })
-      */
+      
   
     console.log("BEFORE groundDetailsEnd=", groundDetailsEnd);
     console.log("groundDetailsStart.duration=", groundDetailsStart.duration);
     console.log("groundDetailsEnd.duration=", groundDetailsEnd.duration);
     console.log("flightDetails.duration=", flightDetails.duration);
 
-    await calculateRoute(
-      directionsService2,
-      directionsRenderer2,
-      `${endAirport.code} Airport`,
-      endPoint,
-      qSelect,
-      setGroundDetailsEnd
-    );
+    i = 0;
+
+    while (i != 3) {
+      let response = await calculateRoute(
+        directionsService2,
+        directionsRenderer2,
+        `${endAirport[i].iataCode} Airport`,
+        endPoint,
+        qSelect,
+        setGroundDetailsEnd
+      );
+
+      if (response){
+        break;
+      }
+      else{
+        i++;
+      }
+    }
+    */
 
     console.log("AFTER endDistance=", groundDetailsEnd.distance);
     console.log("AFTER endDuration=", groundDetailsEnd.duration);
@@ -933,13 +1195,111 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
       */
   
     // Fetch flight data from Amadeus API
-      let result = await fetchFlightData(startAirport.code, endAirport.code, setFlightDetails);
-      if (result == true){
-        return;
+
+    /*
+    i = 0;
+    let j = 0;
+
+    while (i != 3) {
+      while (j != 3) {
+        let response = await fetchFlightData(startAirport[i].iataCode, endAirport[j].iataCode, setFlightDetails);
+        if (response){
+          console.log("J RES: ", response);
+          await calculateRoute(
+            directionsService1,
+            directionsRenderer1,
+            startPoint,
+            `${startAirport[i].iataCode} Airport`,
+            qSelect,
+            setGroundDetailsStart
+          );
+          await calculateRoute(
+            directionsService2,
+            directionsRenderer2,
+            `${endAirport[j].iataCode} Airport`,
+            endPoint,
+            qSelect,
+            setGroundDetailsEnd
+          );
+
+          break;
+        }
+        else{
+          console.log("NO FLIGHTS FOUND FROM", startAirport[i].iataCode, " TO ", endAirport[j].iataCode);
+          j++;
+        }
+      }
+      let response = await fetchFlightData(startAirport[i].iataCode, endAirport[j].iataCode, setFlightDetails);
+      if (response){
+        console.log("I RES: ", response);
+        console.log("startAirport[i].iataCode:", startAirport[i].iataCode);
+        console.log("endAirport[i].iataCode:", endAirport[j].iataCode);
+        await calculateRoute(
+          directionsService1,
+          directionsRenderer1,
+          startPoint,
+          `${startAirport[i].iataCode} Airport`,
+          qSelect,
+          setGroundDetailsStart
+        );
+        await calculateRoute(
+          directionsService2,
+          directionsRenderer2,
+          `${endAirport[j].iataCode} Airport`,
+          endPoint,
+          qSelect,
+          setGroundDetailsEnd
+        );
+
+        break;
       }
       else{
-
+        console.log("NO FLIGHTS FOUND FROM", startAirport[i].iataCode, " TO ", endAirport[j].iataCode);
+        i++;
       }
+    }
+      */
+
+    // remove joint calls
+    let flightFound = false; // Flag to track if a flight is found
+
+    for (let i = 0; i < 3 && !flightFound; i++) {
+      for (let j = 0; j < 3 && !flightFound; j++) {
+        let response = await fetchFlightData(startAirport[i].iataCode, endAirport[j].iataCode, deptDate, setFlightDetails);
+        
+        if (response) {
+          console.log("Flight found:", response);
+          console.log("Start Airport:", startAirport[i].iataCode);
+          console.log("End Airport:", endAirport[j].iataCode);
+          
+          // Run calculateRoute only once
+          await calculateRoute(
+            directionsService1,
+            directionsRenderer1,
+            startPoint,
+            `${startAirport[i].iataCode} Airport`,
+            qSelect,
+            setGroundDetailsStart
+          );
+          await calculateRoute(
+            directionsService2,
+            directionsRenderer2,
+            `${endAirport[j].iataCode} Airport`,
+            endPoint,
+            qSelect,
+            setGroundDetailsEnd
+          );
+
+          flightFound = true; // Set flag to exit loops
+        } else {
+          console.log(`No flights found from ${startAirport[i].iataCode} to ${endAirport[j].iataCode}`);
+        }
+      }
+    }
+
+    if (!flightFound) {
+      console.log("No valid flights found after checking all options.");
+    }
     // await totalDuration();
     //destTemperature(longitude, latitude, departureDate);
   };
@@ -950,7 +1310,6 @@ console.log("----------------------IN GOOGLE MAP COMPONENT ---------------------
       <SearchForm onSearch={handleSearch} />
       <div id="map" style={{ height: "600px", width: "100%" }}></div>
       <div>
-        <h2>Journey Details</h2>
         {displayJourneyDetails()}
       </div>
     </div>
