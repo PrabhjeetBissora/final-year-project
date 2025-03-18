@@ -14,7 +14,7 @@ const SERVER_HOST = "127.0.0.1"; //   the backend server address/url
 app.use(express.json());
 
 app.use(cors({
-    origin: 'http://localhost:3000',  // Frontend URL
+    origin: '*',  // Frontend URL
     methods: 'GET, POST',
     allowedHeaders: 'Content-Type, Authorization'
   }));
@@ -134,7 +134,7 @@ app.get('/api/nearest-airports', async (req, res) => {
         params: { latitude, longitude, radius: 150, }
       });
 
-      //console.log('Amadeus API response:', response.data);
+      console.log('Amadeus API response:', response.data);
   
       if (response.data && response.data.data && response.data.data.length > 0) {
         const airports = response.data.data.map(airport => ({
@@ -390,7 +390,7 @@ const MONGO_DB_PASSWORD = process.env.MONGO_DB_PASSWORD
 const MONGO_DB_SERVER_URL = process.env.MONGO_DB_SERVER_URL
 const uri = `mongodb+srv://${MONGO_DB_USER}:${MONGO_DB_PASSWORD}@${MONGO_DB_SERVER_URL}`
 
-console.log("URI = ", uri)
+//console.log("URI = ", uri)
 
 const client = new MongoClient(uri);
 
