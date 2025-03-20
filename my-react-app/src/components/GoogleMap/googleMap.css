@@ -1,3 +1,7 @@
+body {
+    background-color: lightblue;
+}
+
 TD,TH {
     border:1px solid black;
 }
